@@ -1,3 +1,8 @@
+[![][nuget-img]][nuget]
+
+[nuget]:     https://www.nuget.org/packages/TreeBasedCli
+[nuget-img]: https://badge.fury.io/nu/TreeBasedCli.svg
+
 # Tree-based command-line arguments parser
 
 ## What does it do?
