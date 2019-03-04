@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>TreeBasedCli</id>
+    <version>1.0.0-alpha</version>
+    <authors>Patryk Golebiowski</authors>
+    <owners>Patryk Golebiowski</owners>
+
+    <projectUrl>https://github.com/pgolebiowski/tree-based-cli</projectUrl>
+    <license type="expression">Apache-2.0</license>
+
+    <description>Framework for building a user interface with arbitrarily nested subcommands.</description>
+
+    <tags>command line arguments parser parsing tree user interface console</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+
+  <files>
+    <file src="bin/Release/netstandard2.0/TreeBasedCli.dll" target="lib/netstandard2.0" />
+  </files>
+</package>
