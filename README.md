@@ -190,7 +190,11 @@ private static Command BuildDogCommand()
     {
         Label = "dog",
         Description = new[] { "Print a dog." },
-        Action = x => Console.WriteLine("🐩")
+        TaskToRun = x =>
+        {
+            Console.WriteLine("🐩");
+            return Task.CompletedTask;
+        }
     };
 
 private static Command BuildCatCommand()
@@ -198,7 +202,11 @@ private static Command BuildCatCommand()
     {
         Label = "cat",
         Description = new[] { "Print a cat." },
-        Action = x => Console.WriteLine("🐈")
+        TaskToRun = x =>
+        {
+            Console.WriteLine("🐈");
+            return Task.CompletedTask;
+        }
     };
 ```
 

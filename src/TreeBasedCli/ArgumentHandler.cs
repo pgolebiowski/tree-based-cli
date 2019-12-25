@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TreeBasedCli.Internal;
 
 namespace TreeBasedCli
@@ -63,7 +64,7 @@ namespace TreeBasedCli
             }
         }
 
-        public void Handle(IReadOnlyCollection<string> arguments)
+        public async Task HandleAsync(IReadOnlyCollection<string> arguments)
         {
             if (arguments == null)
             {
@@ -78,7 +79,7 @@ namespace TreeBasedCli
                 }
                 else
                 {
-                    this.RunCommand(arguments);
+                    await this.RunCommandAsync(arguments);
                 }
             }
             catch (WrongCommandUsageException exception)
@@ -115,7 +116,7 @@ namespace TreeBasedCli
             this.PrintHelp(targetCommand);
         }
 
-        private void RunCommand(IReadOnlyCollection<string> arguments)
+        private async Task RunCommandAsync(IReadOnlyCollection<string> arguments)
         {
             this.DetermineTargetCommand(arguments, out var targetCommand, out var notConsumedArguments);
 
@@ -125,7 +126,7 @@ namespace TreeBasedCli
             }
             else if (targetCommand is LeafCommand leafCommand)
             {
-                if (leafCommand.Action == null)
+                if (leafCommand.TaskToRun == null)
                 {
                     throw ThrowHelper.MissingCommandImplementation(
                         leafCommand,
@@ -135,7 +136,7 @@ namespace TreeBasedCli
 
                 var commandArguments = new CommandArguments(leafCommand, notConsumedArguments);
 
-                leafCommand.Action.Invoke(commandArguments);
+                await leafCommand.TaskToRun.Invoke(commandArguments);
             }
             else
             {

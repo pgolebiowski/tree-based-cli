@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using TreeBasedCli.Internal;
+using System.Threading.Tasks;
 
 namespace TreeBasedCli
 {
     public class LeafCommand : Command
     {
         public CommandOption[] Options { get; set; }
-        public Action<CommandArguments> Action { get; set; }
+        public Func<CommandArguments, Task> TaskToRun { get; set; }
 
         public HashSet<string> OptionLabels
         {

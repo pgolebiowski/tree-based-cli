@@ -85,7 +85,7 @@ namespace TreeBasedCli.Internal
 
             AppendErrorSection(help,
                 exception,
-                notImplementedCondition: command.Action == null,
+                notImplementedCondition: command.TaskToRun == null,
                 notImplementedMessage:
                     $"The command '{command.ConsoleArgumentsRepresentingPath}' " +
                     $"does not have an assigned action to invoke.");
