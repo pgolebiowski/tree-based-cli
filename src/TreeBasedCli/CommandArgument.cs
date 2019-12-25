@@ -60,6 +60,19 @@ namespace TreeBasedCli
             return path;
         }
 
+        public string ExpectedAsSinglePathToExistingDirectory()
+        {
+            var path = this.ExpectedAsSingleValue();
+
+            if (!Directory.Exists(path))
+            {
+                ThrowHelper.MessageOnlyException(
+                    $"The directory '{path}' does not exist.");
+            }
+
+            return path;
+        }
+
         public IEnumerator<string> GetEnumerator() => this.raw.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => this.raw.GetEnumerator();
     }
