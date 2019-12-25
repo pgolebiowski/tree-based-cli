@@ -13,6 +13,7 @@
 
     <tags>command line arguments parser parsing tree user interface console</tags>
     <dependencies>
+      <group targetFramework=".NETStandard2.0" />
     </dependencies>
   </metadata>
 
