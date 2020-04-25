@@ -5,9 +5,9 @@
 
 # Tree-based command-line arguments parser
 
-## What does it do?
+## About
 
-This library offers a framework for building a user interface with arbitrarily nested subcommands.
+This library offers a framework for building a user interface with arbitrarily nested subcommands. Here is an example of a command-line interface you could build:
 
 ```
 $ cryptokit cryptographic-algorithms aes-gcm-256 encrypt \
@@ -15,7 +15,16 @@ $ cryptokit cryptographic-algorithms aes-gcm-256 encrypt \
     --output out
 ```
 
-It also generates documentation on the fly. If your customers use your application incorrectly or just want to explore what is available, the library will present them with concise contextual guidelines.
+## Goals
+
+* Asynchronous command execution
+* Trivial command-tree structure modifications
+* Documentation generated automatically
+* Intuitive navigation
+
+## Automatically generated documentation
+
+The framework generates documentation on the fly. If your customers use your application incorrectly or just want to explore what is available, the library will present them with concise contextual guidelines.
 
 For example, if a user knows absolutely nothing about a program and invokes it without any arguments or with `-h`, `--help`, or `help`, the outcome would be similar to this:
 
