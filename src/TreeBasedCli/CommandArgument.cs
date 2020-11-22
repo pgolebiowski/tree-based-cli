@@ -73,6 +73,18 @@ namespace TreeBasedCli
             return path;
         }
 
+        public int ExpectedAsSingleInteger()
+        {
+            var value = this.ExpectedAsSingleValue();
+
+            if (int.TryParse(value, out var result))
+            {
+                return result;
+            }
+
+            throw new MessageOnlyException($"Could not parse '{value}' as an integer.");
+        }
+
         public IEnumerator<string> GetEnumerator() => this.raw.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => this.raw.GetEnumerator();
     }
