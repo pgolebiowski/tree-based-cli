@@ -5,7 +5,7 @@ using TreeBasedCli.Internal;
 
 namespace TreeBasedCli
 {
-    public class CommandArguments
+    public class CommandArguments : ICommandArguments
     {
         private Dictionary<string, IReadOnlyCollection<string>> argumentsAsDictionary;
 
@@ -20,7 +20,7 @@ namespace TreeBasedCli
         public IReadOnlyCollection<string> Arguments { get; }
         public LeafCommand Command { get; }
 
-        public bool TryGet(string optionLabel, out CommandArgument result)
+        public bool TryGetArgument(string optionLabel, out ICommandArgument result)
         {
             if (this.argumentsAsDictionary.TryGetValue(optionLabel, out var found))
             {
@@ -34,9 +34,9 @@ namespace TreeBasedCli
             }
         }
 
-        public CommandArgument GetOrNull(string optionLabel)
+        public ICommandArgument GetArgumentOrNull(string optionLabel)
         {
-            if (this.TryGet(optionLabel, out var result))
+            if (this.TryGetArgument(optionLabel, out var result))
             {
                 return result;
             }
@@ -44,9 +44,9 @@ namespace TreeBasedCli
             return null;
         }
 
-        public CommandArgument GetArgument(string optionLabel)
+        public ICommandArgument GetArgument(string optionLabel)
         {
-            var found = this.GetOrNull(optionLabel);
+            var found = this.GetArgumentOrNull(optionLabel);
             
             if (found != null)
             {
