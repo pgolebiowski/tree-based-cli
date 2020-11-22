@@ -5,6 +5,12 @@
 
 # Tree-based command-line arguments parser
 
+## Install
+
+```
+dotnet add package TreeBasedCli
+```
+
 ## About
 
 This library offers a framework for building a user interface with arbitrarily nested subcommands. Here is an example of a command-line interface you could build:
