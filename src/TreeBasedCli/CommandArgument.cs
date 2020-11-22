@@ -30,6 +30,7 @@ namespace TreeBasedCli
         }
 
         public int Count { get; }
+        public IReadOnlyCollection<string> Values => this.raw;
 
         public string ExpectedAsSingleValue()
         {
@@ -84,8 +85,5 @@ namespace TreeBasedCli
 
             throw new MessageOnlyException($"Could not parse '{value}' as an integer.");
         }
-
-        public IEnumerator<string> GetEnumerator() => this.raw.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => this.raw.GetEnumerator();
     }
 }
