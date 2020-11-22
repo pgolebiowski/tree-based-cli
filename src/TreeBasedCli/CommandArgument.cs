@@ -14,7 +14,7 @@ namespace TreeBasedCli
     /// expected to be a single value only). This class is intended
     /// to facilitate parsing of most common types of arguments.
     /// </summary>
-    public partial class CommandArgument : ICommandArgument, IReadOnlyCollection<string>
+    public partial class CommandArgument : ICommandArgument
     {
         private readonly Command command;
         private readonly string optionLabel;

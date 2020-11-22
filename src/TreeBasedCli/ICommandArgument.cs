@@ -1,8 +1,9 @@
+using System.Collections.Generic;
+
 namespace TreeBasedCli
 {
-    public interface ICommandArgument
+    public interface ICommandArgument : IReadOnlyCollection<string>
     {
-        int Count { get; }
         string ExpectedAsSingleValue();
         string ExpectedAsSinglePathToExistingFile();
         string ExpectedAsSinglePathToExistingDirectory();
