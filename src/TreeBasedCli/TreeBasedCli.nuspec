@@ -13,11 +13,11 @@
 
     <tags>command line arguments parser parsing tree user interface console</tags>
     <dependencies>
-      <group targetFramework=".NETStandard2.0" />
+      <group targetFramework=".NETCore5.0" />
     </dependencies>
   </metadata>
 
   <files>
-    <file src="bin/Release/netstandard2.0/TreeBasedCli.dll" target="lib/netstandard2.0" />
+    <file src="bin/Release/net5.0/TreeBasedCli.dll" target="lib/net5.0" />
   </files>
 </package>
