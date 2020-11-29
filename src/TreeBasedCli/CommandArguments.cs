@@ -20,6 +20,11 @@ namespace TreeBasedCli
         public IReadOnlyCollection<string> Arguments { get; }
         public LeafCommand Command { get; }
 
+        public bool ContainsArgument(string optionLabel)
+        {
+            return this.argumentsAsDictionary.ContainsKey(optionLabel);
+        }
+
         public bool TryGetArgument(string optionLabel, out ICommandArgument result)
         {
             if (this.argumentsAsDictionary.TryGetValue(optionLabel, out var found))
@@ -34,7 +39,7 @@ namespace TreeBasedCli
             }
         }
 
-        public ICommandArgument GetArgumentOrNull(string optionLabel)
+        public ICommandArgument? GetArgumentOrNull(string optionLabel)
         {
             if (this.TryGetArgument(optionLabel, out var result))
             {
