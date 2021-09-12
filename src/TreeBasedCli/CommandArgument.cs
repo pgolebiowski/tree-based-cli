@@ -17,18 +17,19 @@ namespace TreeBasedCli
     /// </summary>
     public partial class CommandArgument : ICommandArgument
     {
-        private readonly Command command;
         private readonly string optionLabel;
         private readonly IReadOnlyCollection<string> raw;
 
         public CommandArgument(Command command, string optionLabel, IReadOnlyCollection<string> raw)
         {
-            this.command = command;
+            this.Command = command;
             this.optionLabel = optionLabel;
             this.raw = raw;
 
             this.Count = this.raw.Count;
         }
+
+        public Command Command { get; }
 
         public int Count { get; }
         public IReadOnlyCollection<string> Values => this.raw;
@@ -40,8 +41,8 @@ namespace TreeBasedCli
                 var countingWord = this.Count == 0 ? "none was" : $"{this.Count} were";
 
                 ThrowHelper.WrongCommandUsage(
-                    this.command,
-                    $"The command '{this.command.ConsoleArgumentsRepresentingPath}' ",
+                    this.Command,
+                    $"The command '{this.Command.ConsoleArgumentsRepresentingPath}' ",
                     $"expects a single value for the option '{this.optionLabel}' ",
                     $"but {countingWord} provided.");
             }
@@ -100,7 +101,7 @@ namespace TreeBasedCli
                 var availableValues = string.Join(", ", Enum.GetValues<TEnum>());
 
                 throw ThrowHelper.WrongCommandUsage(
-                    this.command,
+                    this.Command,
                     $"There is no enum value for {typeof(TEnum)} that maps to '{value}'. ",
                     $"Available values are: [ {availableValues} ].");
             }

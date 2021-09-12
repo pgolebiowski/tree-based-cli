@@ -5,6 +5,8 @@ namespace TreeBasedCli
 {
     public interface ICommandArgument
     {
+        Command Command { get; }
+
         int Count { get; }
         IReadOnlyCollection<string> Values { get; }
 
