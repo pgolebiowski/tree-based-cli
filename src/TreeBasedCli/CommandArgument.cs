@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -84,6 +85,25 @@ namespace TreeBasedCli
             }
 
             throw new MessageOnlyException($"Could not parse '{value}' as an integer.");
+        }
+
+        public TEnum ExpectedAsEnumValue<TEnum>() where TEnum : struct, Enum
+        {
+            var value = this.ExpectedAsSingleValue();
+
+            try
+            {
+                return Enum.Parse<TEnum>(value);
+            }
+            catch
+            {
+                var availableValues = string.Join(", ", Enum.GetValues<TEnum>());
+
+                throw ThrowHelper.WrongCommandUsage(
+                    this.command,
+                    $"There is no enum value for {typeof(TEnum)} that maps to '{value}'. ",
+                    $"Available values are: [ {availableValues} ].");
+            }
         }
     }
 }

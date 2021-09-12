@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace TreeBasedCli
@@ -11,5 +12,6 @@ namespace TreeBasedCli
         string ExpectedAsSinglePathToExistingFile();
         string ExpectedAsSinglePathToExistingDirectory();
         int ExpectedAsSingleInteger();
+        TEnum ExpectedAsEnumValue<TEnum>() where TEnum : struct, Enum;
     }
 }

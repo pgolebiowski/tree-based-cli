@@ -27,7 +27,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore src/TreeBasedCli
     - name: Test
-      run: dotnet test --no-restore --verbosity normal src/TreeBasedCli
+      run: dotnet test --no-restore --verbosity normal src
   pack:
     runs-on: ubuntu-latest
     needs: build
