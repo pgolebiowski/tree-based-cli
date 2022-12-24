@@ -31,14 +31,14 @@ namespace TreeBasedCli
                 throw new ArgumentException("There is no command tree.");
             }
 
-            var root = this.settings.CommandTree.Root;
+            Command root = this.settings.CommandTree.Root;
 
             if (root == null)
             {
                 throw new ArgumentException("The command tree does not have a root.");
             }
 
-            var overridesHelp = false;
+            bool overridesHelp = false;
 
             if (root is BranchCommand branchCommand)
             {
@@ -73,7 +73,7 @@ namespace TreeBasedCli
 
             try
             {
-                if (ExplicitlyRequestedHelp(arguments, out var helpArguments))
+                if (ExplicitlyRequestedHelp(arguments, out IReadOnlyCollection<string> helpArguments))
                 {
                     this.PrintHelp(helpArguments);
                 }
@@ -112,13 +112,13 @@ namespace TreeBasedCli
 
         private void PrintHelp(IReadOnlyCollection<string> arguments)
         {
-            this.DetermineTargetCommand(arguments, out var targetCommand, out var notConsumedArguments);
+            this.DetermineTargetCommand(arguments, out Command targetCommand, out IReadOnlyCollection<string> notConsumedArguments);
             this.PrintHelp(targetCommand);
         }
 
         private async Task RunCommandAsync(IReadOnlyCollection<string> arguments)
         {
-            this.DetermineTargetCommand(arguments, out var targetCommand, out var notConsumedArguments);
+            this.DetermineTargetCommand(arguments, out Command targetCommand, out IReadOnlyCollection<string> notConsumedArguments);
 
             if (targetCommand is BranchCommand branchCommand)
             {
@@ -157,9 +157,9 @@ namespace TreeBasedCli
                 return;
             }
 
-            var consumedArguments = 0;
+            int consumedArguments = 0;
 
-            foreach (var argument in arguments)
+            foreach (string argument in arguments)
             {
                 if (targetCommand is LeafCommand leafCommand)
                 {
@@ -169,7 +169,7 @@ namespace TreeBasedCli
                 }
                 else if (targetCommand is BranchCommand branchCommand)
                 {
-                    if (branchCommand.TryGetChildCommand(argument, out var childCommand))
+                    if (branchCommand.TryGetChildCommand(argument, out Command childCommand))
                     {
                         consumedArguments++;
                         targetCommand = childCommand;
@@ -205,7 +205,7 @@ namespace TreeBasedCli
             switch (command)
             {
                 case LeafCommand leafCommand:
-                    var help = this.settings.HelpProvider.ProvideHelp(leafCommand, exception);
+                    string help = this.settings.HelpProvider.ProvideHelp(leafCommand, exception);
                     Console.WriteLine(help);
                     break;
 

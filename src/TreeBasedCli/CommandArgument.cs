@@ -38,7 +38,7 @@ namespace TreeBasedCli
         {
             if (this.Count != 1)
             {
-                var countingWord = this.Count == 0 ? "none was" : $"{this.Count} were";
+                string countingWord = this.Count == 0 ? "none was" : $"{this.Count} were";
 
                 ThrowHelper.WrongCommandUsage(
                     this.Command,
@@ -52,7 +52,7 @@ namespace TreeBasedCli
 
         public string ExpectedAsSinglePathToExistingFile()
         {
-            var path = this.ExpectedAsSingleValue();
+            string path = this.ExpectedAsSingleValue();
 
             if (!File.Exists(path))
             {
@@ -65,7 +65,7 @@ namespace TreeBasedCli
 
         public string ExpectedAsSinglePathToExistingDirectory()
         {
-            var path = this.ExpectedAsSingleValue();
+            string path = this.ExpectedAsSingleValue();
 
             if (!Directory.Exists(path))
             {
@@ -78,9 +78,9 @@ namespace TreeBasedCli
 
         public int ExpectedAsSingleInteger()
         {
-            var value = this.ExpectedAsSingleValue();
+            string value = this.ExpectedAsSingleValue();
 
-            if (int.TryParse(value, out var result))
+            if (int.TryParse(value, out int result))
             {
                 return result;
             }
@@ -90,7 +90,7 @@ namespace TreeBasedCli
 
         public TEnum ExpectedAsEnumValue<TEnum>() where TEnum : struct, Enum
         {
-            var value = this.ExpectedAsSingleValue();
+            string value = this.ExpectedAsSingleValue();
 
             try
             {
@@ -98,7 +98,7 @@ namespace TreeBasedCli
             }
             catch
             {
-                var availableValues = string.Join(", ", Enum.GetValues<TEnum>());
+                string availableValues = string.Join(", ", Enum.GetValues<TEnum>());
 
                 throw ThrowHelper.WrongCommandUsage(
                     this.Command,

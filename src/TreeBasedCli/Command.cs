@@ -15,7 +15,7 @@ namespace TreeBasedCli
         {
             get
             {
-                var result = this.Label.Escape("\"");
+                string result = this.Label.Escape("\"");
 
                 if (result.Contains(" "))
                 {
@@ -32,7 +32,7 @@ namespace TreeBasedCli
             {
                 var result = new Stack<Command>();
 
-                for (var command = this; command != null; command = command.Parent)
+                for (Command command = this; command != null; command = command.Parent)
                 {
                     result.Push(command);
                 }
@@ -48,15 +48,15 @@ namespace TreeBasedCli
         {
             get
             {
-                var rootLabel = this.Tree.Root.LabelVisibleForUserInConsole;
-                var remainingPath = this.Path.Skip(1);
+                string rootLabel = this.Tree.Root.LabelVisibleForUserInConsole;
+                IEnumerable<Command> remainingPath = this.Path.Skip(1);
 
                 if (remainingPath.IsEmpty())
                 {
                     return $"{rootLabel} help";
                 }
 
-                var remainingLabels = remainingPath.Select(x => x.LabelVisibleForUserInConsole).Join(" ");
+                string remainingLabels = remainingPath.Select(x => x.LabelVisibleForUserInConsole).Join(" ");
                 return $"{rootLabel} help {remainingLabels}";
             }
         }

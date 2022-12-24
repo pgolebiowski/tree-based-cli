@@ -27,7 +27,7 @@ namespace TreeBasedCli
 
         public bool TryGetArgument(string optionLabel, out ICommandArgument result)
         {
-            if (this.argumentsAsDictionary.TryGetValue(optionLabel, out var found))
+            if (this.argumentsAsDictionary.TryGetValue(optionLabel, out IReadOnlyCollection<string>? found))
             {
                 result = new CommandArgument(this.Command, optionLabel, found);
                 return true;
@@ -41,7 +41,7 @@ namespace TreeBasedCli
 
         public ICommandArgument? GetArgumentOrNull(string optionLabel)
         {
-            if (this.TryGetArgument(optionLabel, out var result))
+            if (this.TryGetArgument(optionLabel, out ICommandArgument result))
             {
                 return result;
             }
@@ -51,7 +51,7 @@ namespace TreeBasedCli
 
         public ICommandArgument GetArgument(string optionLabel)
         {
-            var found = this.GetArgumentOrNull(optionLabel);
+            ICommandArgument? found = this.GetArgumentOrNull(optionLabel);
             
             if (found != null)
             {
@@ -73,7 +73,7 @@ namespace TreeBasedCli
                 return result;
             }
 
-            var labels = this.Command.OptionLabels;
+            HashSet<string> labels = this.Command.OptionLabels;
 
             if (labels.IsEmpty())
             {
