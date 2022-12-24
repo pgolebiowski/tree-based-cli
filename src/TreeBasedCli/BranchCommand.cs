@@ -6,7 +6,10 @@ namespace TreeBasedCli
 {
     public class BranchCommand : Command
     {
-        public BranchCommand(IReadOnlyList<Command> childCommands)
+        public BranchCommand(
+            string label,
+            string[] description,
+            IReadOnlyList<Command> childCommands) : base(label, description)
         {
             this.ChildCommands = childCommands;
         }

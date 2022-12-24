@@ -11,14 +11,13 @@ namespace TreeBasedCli.Sample
     {
         private const string NameLabel = "--name";
 
-        public CreateCatCommand() : base(DependencyInjectionService.Instance)
-        {
-            this.Label = "create-cat";
-            this.Description = new[]
+        public CreateCatCommand() : base(
+            label: "create-cat",
+            description: new[]
             {
                 "Prints out a cat."
-            };
-            this.Options = new[]
+            },
+            options: new[]
             {
                 new CommandOption(
                     label: NameLabel,
@@ -27,8 +26,9 @@ namespace TreeBasedCli.Sample
                         "Required. The name of the cat to print."
                     }
                 ),
-            };
-        }
+            },
+            DependencyInjectionService.Instance)
+        { }
 
         public record Arguments(string CatName) : IParsedCommandArguments;
 

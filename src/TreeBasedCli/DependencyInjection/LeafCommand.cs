@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace TreeBasedCli.DependencyInjection
 {
@@ -12,7 +13,12 @@ namespace TreeBasedCli.DependencyInjection
     {
         private readonly IDependencyInjectionService dependencyInjectionService;
 
-        public LeafCommand(IDependencyInjectionService dependencyInjectionService)
+        public LeafCommand(
+            string label,
+            string[] description,
+            IReadOnlyList<CommandOption> options,
+            IDependencyInjectionService dependencyInjectionService)
+                : base(label, description, options)
         {
             this.dependencyInjectionService = dependencyInjectionService;
 

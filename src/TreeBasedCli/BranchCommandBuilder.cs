@@ -29,11 +29,11 @@ namespace TreeBasedCli
 
         public BranchCommand Build()
         {
-            return new BranchCommand(this.childCommands)
-            {
-                Label = this.label,
-                Description = this.description
-            };
+            return new BranchCommand(
+                label: this.label,
+                description: this.description,
+                childCommands: this.childCommands
+            );
         }
     }
 }

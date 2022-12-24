@@ -6,7 +6,16 @@ namespace TreeBasedCli
 {
     public class LeafCommand : Command
     {
-        public CommandOption[] Options { get; set; }
+        public LeafCommand(
+            string label,
+            string[] description,
+            IReadOnlyList<CommandOption> options)
+                : base(label, description)
+        {
+            this.Options = options;
+        }
+
+        public IReadOnlyList<CommandOption> Options { get; }
         public Func<CommandArguments, Task> TaskToRun { get; set; }
 
         public IReadOnlySet<string> OptionLabels
@@ -17,7 +26,7 @@ namespace TreeBasedCli
 
                 if (this.Options == null)
                     return result;
-                
+
                 foreach (CommandOption option in this.Options)
                 {
                     result.Add(option.Label);

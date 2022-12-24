@@ -4,12 +4,19 @@ using TreeBasedCli.Internal;
 
 namespace TreeBasedCli
 {
-    public abstract class Command
+    public class Command
     {
-        public string Label { get; set; }
-        public string[] Description { get; set; }
-        public BranchCommand Parent { get; set; }
-        public CommandTree Tree { get; set; }
+        public Command(string label, string[] description)
+        {
+            this.Label = label;
+            this.Description = description;
+        }
+
+        public string Label { get; }
+        public string[] Description { get; }
+
+        internal BranchCommand? Parent { get; set; }
+        internal CommandTree? Tree { get; set; }
 
         public string LabelVisibleForUserInConsole
         {
@@ -32,7 +39,7 @@ namespace TreeBasedCli
             {
                 var result = new Stack<Command>();
 
-                for (Command command = this; command != null; command = command.Parent)
+                for (Command? command = this; command != null; command = command.Parent)
                 {
                     result.Push(command);
                 }

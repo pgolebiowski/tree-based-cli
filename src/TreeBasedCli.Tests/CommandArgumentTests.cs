@@ -13,15 +13,16 @@ namespace TreeBasedCli.Tests
             // given
             SampleEnum result = SampleEnum.None;
             string argumentLabel = "--enum-value";
-            var command = new LeafCommand
-            {
-                Label = "verb",
-                Options = new[]
+            var command = new LeafCommand(
+                label: "verb",
+                description: new string[] { },
+                options: new[]
                 {
                     new CommandOption(
                         label: argumentLabel,
                         description: new string[] { })
-                },
+                })
+            {
                 TaskToRun = args =>
                 {
                     result = args.GetArgument(argumentLabel).ExpectedAsEnumValue<SampleEnum>();
