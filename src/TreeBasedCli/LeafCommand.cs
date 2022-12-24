@@ -9,7 +9,7 @@ namespace TreeBasedCli
         public CommandOption[] Options { get; set; }
         public Func<CommandArguments, Task> TaskToRun { get; set; }
 
-        public HashSet<string> OptionLabels
+        public IReadOnlySet<string> OptionLabels
         {
             get
             {

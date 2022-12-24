@@ -73,7 +73,7 @@ namespace TreeBasedCli
                 return result;
             }
 
-            HashSet<string> labels = this.Command.OptionLabels;
+            IReadOnlySet<string> labels = this.Command.OptionLabels;
 
             if (labels.IsEmpty())
             {

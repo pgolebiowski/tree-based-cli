@@ -10,7 +10,7 @@ namespace TreeBasedCli
     {
         private readonly ArgumentHandlerSettings settings;
 
-        private static HashSet<string> ExplicitHelpRequestIndicators = new HashSet<string>
+        private static IReadOnlySet<string> ExplicitHelpRequestIndicators = new HashSet<string>
         {
             "help",
             "--help",

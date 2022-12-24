@@ -15,9 +15,6 @@ namespace TreeBasedCli.Internal
         public static string Join(this IEnumerable<string> collection, string separator = "")
             => string.Join(separator, collection);
 
-        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> collection)
-            => new HashSet<T>(collection);
-
         public static void ForEach<T>(this IEnumerable<T> collection, Action<IterationInfo<T>> action)
         {
             using (var enumerator = collection.GetEnumerator())
