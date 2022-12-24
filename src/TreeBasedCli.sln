@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeBasedCli", "TreeBasedCl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeBasedCli.Tests", "TreeBasedCli.Tests\TreeBasedCli.Tests.csproj", "{91E944CE-255B-47C8-8A36-49DE719F0E2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeBasedCli.Sample", "TreeBasedCli.Sample\TreeBasedCli.Sample.csproj", "{740AA0F7-2F44-4FA3-A905-C9733A768899}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{91E944CE-255B-47C8-8A36-49DE719F0E2F}.Release|x64.Build.0 = Release|Any CPU
 		{91E944CE-255B-47C8-8A36-49DE719F0E2F}.Release|x86.ActiveCfg = Release|Any CPU
 		{91E944CE-255B-47C8-8A36-49DE719F0E2F}.Release|x86.Build.0 = Release|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Debug|x64.Build.0 = Debug|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Debug|x86.Build.0 = Debug|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Release|x64.ActiveCfg = Release|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Release|x64.Build.0 = Release|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Release|x86.ActiveCfg = Release|Any CPU
+		{740AA0F7-2F44-4FA3-A905-C9733A768899}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

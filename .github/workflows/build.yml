@@ -16,10 +16,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Setup .NET 5.0
+    - name: Setup .NET 7.0
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 7.0.x
     - name: Current directory
       run: pwd ; ls
     - name: Install dependencies
@@ -35,10 +35,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Setup .NET 5.0
+    - name: Setup .NET 7.0
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 7.0.x
     - name: Pack
       run: dotnet pack --output ./artifacts --configuration Release src/TreeBasedCli
     - uses: actions/upload-artifact@v2
@@ -50,10 +50,10 @@ jobs:
     needs: pack
     if: github.event_name == 'push'
     steps:
-    - name: Setup .NET 5.0
+    - name: Setup .NET 7.0
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 7.0.x
     - uses: actions/download-artifact@v2
       with:
         name: artifacts

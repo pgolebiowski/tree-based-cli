@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>TreeBasedCli</id>
-    <version>1.1.4</version>
+    <version>2.0.0</version>
     <authors>Patryk Golebiowski</authors>
     <owners>Patryk Golebiowski</owners>
 
@@ -13,11 +13,11 @@
 
     <tags>command line arguments parser parsing tree user interface console</tags>
     <dependencies>
-      <group targetFramework=".NETCore5.0" />
+      <group targetFramework="net7.0" />
     </dependencies>
   </metadata>
 
   <files>
-    <file src="bin/Release/net5.0/TreeBasedCli.dll" target="lib/net5.0" />
+    <file src="bin/Release/net7.0/TreeBasedCli.dll" target="lib/net7.0" />
   </files>
 </package>
