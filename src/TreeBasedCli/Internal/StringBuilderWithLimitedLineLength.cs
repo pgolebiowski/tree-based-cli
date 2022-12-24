@@ -27,16 +27,6 @@ namespace TreeBasedCli.Internal
             this.builder.AppendLines(sectionLines);
         }
 
-        public void AppendLine(string line = null)
-        {
-            this.builder.AppendLine(line);
-        }
-
-        public void AppendLines(IEnumerable<string> lines)
-        {
-            this.builder.AppendLines(lines);
-        }
-
         public override string ToString()
         {
             return this.builder.ToString();
