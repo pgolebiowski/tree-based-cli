@@ -11,7 +11,7 @@ namespace TreeBasedCli.Internal
         public DefaultHelpProvider(ArgumentHandlerSettings settings)
             => this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
-        public string ProvideHelp(BranchCommand command, WrongCommandUsageException exception = null)
+        public string ProvideHelp(BranchCommand command, WrongCommandUsageException exception)
         {
             int lineLengthLimit = Math.Min(Console.WindowWidth - 8, 120);
             var help = new StringBuilderWithLimitedLineLength(lineLengthLimit);
@@ -75,7 +75,7 @@ namespace TreeBasedCli.Internal
             return help.ToString();
         }
 
-        public string ProvideHelp(LeafCommand command, WrongCommandUsageException exception = null)
+        public string ProvideHelp(LeafCommand command, WrongCommandUsageException exception)
         {
             int lineLengthLimit = Math.Min(Console.WindowWidth - 8, 120);
             var help = new StringBuilderWithLimitedLineLength(lineLengthLimit);
