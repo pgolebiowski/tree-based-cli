@@ -20,7 +20,7 @@ namespace TreeBasedCli.Internal
 
         public override IEnumerable<string> Build(int lineLengthLimit)
         {
-            for (var i = 0; i < linesCount; ++i)
+            for (int i = 0; i < linesCount; ++i)
             {
                 yield return "";
             }

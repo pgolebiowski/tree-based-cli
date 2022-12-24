@@ -13,8 +13,8 @@ namespace TreeBasedCli.Tests
         public async Task should_parse_correct_enum_value()
         {
             // given
-            var result = SampleEnum.None;
-            var argumentLabel = "--enum-value";
+            SampleEnum result = SampleEnum.None;
+            string argumentLabel = "--enum-value";
             var command = new LeafCommand
             {
                 Label = "verb",

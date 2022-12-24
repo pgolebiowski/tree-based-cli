@@ -35,7 +35,7 @@ namespace TreeBasedCli
             {
                 if (branchNode.ChildCommands != null)
                 {
-                    foreach (var childNode in branchNode.ChildCommands)
+                    foreach (Command childNode in branchNode.ChildCommands)
                     {
                         this.SetParentReferences(childNode, branchNode);
                     }

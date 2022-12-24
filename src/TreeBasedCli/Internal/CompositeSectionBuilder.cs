@@ -8,9 +8,9 @@ namespace TreeBasedCli.Internal
 
         public override IEnumerable<string> Build(int lineLengthLimit)
         {
-            foreach (var section in this.BuildSections(lineLengthLimit))
+            foreach (SectionBuilder section in this.BuildSections(lineLengthLimit))
             {
-                foreach (var line in section.Build(lineLengthLimit))
+                foreach (string line in section.Build(lineLengthLimit))
                 {
                     yield return line;
                 }

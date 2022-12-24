@@ -23,7 +23,7 @@ namespace TreeBasedCli.Internal
 
         public void AppendSection(SectionBuilder sectionBuilder)
         {
-            var sectionLines = sectionBuilder.Build(this.lineLengthLimit);
+            IEnumerable<string> sectionLines = sectionBuilder.Build(this.lineLengthLimit);
             this.builder.AppendLines(sectionLines);
         }
 

@@ -84,7 +84,7 @@ namespace TreeBasedCli
             }
 
             var arguments = new Queue<string>(this.Arguments);
-            var currentOption = arguments.Dequeue();
+            string currentOption = arguments.Dequeue();
 
             if (!labels.Contains(currentOption))
             {
@@ -98,7 +98,7 @@ namespace TreeBasedCli
 
             while (!arguments.IsEmpty())
             {
-                var front = arguments.Dequeue();
+                string front = arguments.Dequeue();
 
                 if (labels.Contains(front))
                 {

@@ -18,7 +18,7 @@ namespace TreeBasedCli
                 if (this.Options == null)
                     return result;
                 
-                foreach (var option in this.Options)
+                foreach (CommandOption option in this.Options)
                 {
                     result.Add(option.Label);
                 }

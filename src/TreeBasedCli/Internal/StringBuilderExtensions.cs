@@ -7,7 +7,7 @@ namespace TreeBasedCli.Internal
     {
         public static void AppendLines(this StringBuilder builder, IEnumerable<string> lines)
         {
-            foreach (var line in lines)
+            foreach (string line in lines)
             {
                 builder.AppendLine(line);
             }

@@ -13,13 +13,13 @@ namespace TreeBasedCli.Internal
 
         public string ProvideHelp(BranchCommand command, WrongCommandUsageException exception = null)
         {
-            var lineLengthLimit = Math.Min(Console.WindowWidth - 8, 120);
+            int lineLengthLimit = Math.Min(Console.WindowWidth - 8, 120);
             var help = new StringBuilderWithLimitedLineLength(lineLengthLimit);
 
             help.AppendSection(new EmptySection(linesCount: 1));
             help.AppendSection(new NameAndVersionSection(this.settings.Name, this.settings.Version));
 
-            var thereAreChildCommands = !command.ChildCommands.IsNullOrEmpty();
+            bool thereAreChildCommands = !command.ChildCommands.IsNullOrEmpty();
 
             AppendErrorSection(help,
                 exception,
@@ -43,13 +43,13 @@ namespace TreeBasedCli.Internal
                 help.AppendSection(new HeaderSection("Child commands:"));
                 help.AppendSection(new EmptySection(linesCount: 1));
 
-                var maxChildCommandLabelLength = command.ChildCommands
+                int maxChildCommandLabelLength = command.ChildCommands
                     .Select(x => x.Label.Length)
                     .Max();
 
                 command.ChildCommands.ForEach(x =>
                 {
-                    var childCommand = x.CurrentElement;
+                    Command childCommand = x.CurrentElement;
 
                     help.AppendSection(new TwoColumnParagraphBodySection(
                             firstColumnWidth: maxChildCommandLabelLength,
@@ -77,7 +77,7 @@ namespace TreeBasedCli.Internal
 
         public string ProvideHelp(LeafCommand command, WrongCommandUsageException exception = null)
         {
-            var lineLengthLimit = Math.Min(Console.WindowWidth - 8, 120);
+            int lineLengthLimit = Math.Min(Console.WindowWidth - 8, 120);
             var help = new StringBuilderWithLimitedLineLength(lineLengthLimit);
 
             help.AppendSection(new EmptySection(linesCount: 1));
@@ -93,7 +93,7 @@ namespace TreeBasedCli.Internal
             help.AppendSection(new DescriptionSection(command.Description));
             help.AppendSection(new EmptySection(linesCount: 3));
 
-            var hasChildOptions = !command.Options.IsNullOrEmpty();
+            bool hasChildOptions = !command.Options.IsNullOrEmpty();
 
             help.AppendSection(new HeaderSection("Usage:"));
             help.AppendSection(new EmptySection(linesCount: 1));
@@ -106,13 +106,13 @@ namespace TreeBasedCli.Internal
                 help.AppendSection(new HeaderSection("Options:"));
                 help.AppendSection(new EmptySection(linesCount: 1));
 
-                var maxOptionLabelLength = command.Options
+                int maxOptionLabelLength = command.Options
                     .Select(x => x.Label.Length)
                     .Max();
 
                 command.Options.ForEach(x =>
                 {
-                    var option = x.CurrentElement;
+                    CommandOption option = x.CurrentElement;
 
                     help.AppendSection(new TwoColumnParagraphBodySection(
                         firstColumnWidth: maxOptionLabelLength,
@@ -138,7 +138,7 @@ namespace TreeBasedCli.Internal
             bool notImplementedCondition,
             string notImplementedMessage)
         {
-            var thereWasException = exception != null;
+            bool thereWasException = exception != null;
             var errors = new List<string>();
 
             if (thereWasException)
@@ -156,10 +156,10 @@ namespace TreeBasedCli.Internal
 
             if (!errors.IsEmpty())
             {
-                var multipleErrors = errors.Count > 1;
+                bool multipleErrors = errors.Count > 1;
 
-                var header = multipleErrors ? "Errors:" : "Error:";
-                var summary = multipleErrors
+                string header = multipleErrors ? "Errors:" : "Error:";
+                string summary = multipleErrors
                     ? errors.Select((error, i) => $"{i + 1}) {error}").Join("\n\n")
                     : errors.Join("\n\n");
 

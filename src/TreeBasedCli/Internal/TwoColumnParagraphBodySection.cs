@@ -76,17 +76,17 @@ namespace TreeBasedCli.Internal
 
         public override IEnumerable<string> Build(int lineLengthLimit)
         {
-            var secondColumnIndentSize =
+            int secondColumnIndentSize =
                 this.firstColumnIndentSize +
                 this.firstColumnWidth +
                 this.columnSeparatorSize;
 
-            var rawFirstColumnText = this.firstColumnOfParagraphs.InjectBetweenAdjacentElements("\n", this.emptyLinesBetweenParagraphs).Join();
-            var rawSecondColumnText = this.secondColumnOfParagraphs.InjectBetweenAdjacentElements("\n", this.emptyLinesBetweenParagraphs).Join();
+            string rawFirstColumnText = this.firstColumnOfParagraphs.InjectBetweenAdjacentElements("\n", this.emptyLinesBetweenParagraphs).Join();
+            string rawSecondColumnText = this.secondColumnOfParagraphs.InjectBetweenAdjacentElements("\n", this.emptyLinesBetweenParagraphs).Join();
 
-            var firstColumnLines = TextFormatter.Indent(rawFirstColumnText, this.firstColumnIndentSize, lineLengthLimit).ToArray();
-            var secondColumnLines = TextFormatter.Indent(rawSecondColumnText, secondColumnIndentSize, lineLengthLimit).ToArray();
-            var mergedLines = TextFormatter.MergeColumnsLineByLine(secondColumnLines, firstColumnLines).ToArray();
+            string[] firstColumnLines = TextFormatter.Indent(rawFirstColumnText, this.firstColumnIndentSize, lineLengthLimit).ToArray();
+            string[] secondColumnLines = TextFormatter.Indent(rawSecondColumnText, secondColumnIndentSize, lineLengthLimit).ToArray();
+            string[] mergedLines = TextFormatter.MergeColumnsLineByLine(secondColumnLines, firstColumnLines).ToArray();
 
             return mergedLines;
         }

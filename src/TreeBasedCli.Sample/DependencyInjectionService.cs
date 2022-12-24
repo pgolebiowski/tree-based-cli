@@ -13,7 +13,7 @@ namespace TreeBasedCli.Sample
 
         private DependencyInjectionService()
         {
-            var services = BuildServiceCollection();
+            ServiceCollection services = BuildServiceCollection();
             this.serviceProvider = services.BuildServiceProvider();
         }
 

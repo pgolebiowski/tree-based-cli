@@ -7,7 +7,7 @@ namespace TreeBasedCli.Sample
     {
         private static async Task<int> Main(string[] arguments)
         {
-            var argumentHandlerSettings = ArgumentHandlerSettingsBuilder.Build();
+            ArgumentHandlerSettings argumentHandlerSettings = ArgumentHandlerSettingsBuilder.Build();
             var argumentHandler = new ArgumentHandler(argumentHandlerSettings);
 
             try
@@ -21,7 +21,7 @@ namespace TreeBasedCli.Sample
             }
             catch (Exception exception)
             {
-                var type = exception.GetType().Name;
+                string type = exception.GetType().Name;
 
                 Console.WriteLine($"Program aborted with an exception of type '{type}':");
                 Console.WriteLine($"\n{exception.Message}");

@@ -11,17 +11,17 @@ namespace TreeBasedCli.Internal
             IReadOnlyList<string> toBeOverriden,
             IReadOnlyList<string> overriding)
         {
-            var minLength = Math.Min(toBeOverriden.Count, overriding.Count);
-            var maxLength = Math.Max(toBeOverriden.Count, overriding.Count);
-            var i = 0;
+            int minLength = Math.Min(toBeOverriden.Count, overriding.Count);
+            int maxLength = Math.Max(toBeOverriden.Count, overriding.Count);
+            int i = 0;
 
             for (; i < minLength; ++i)
             {
-                var line = overriding[i] + toBeOverriden[i].Substring(overriding[i].Length);
+                string line = overriding[i] + toBeOverriden[i].Substring(overriding[i].Length);
                 yield return line;
             }
 
-            var longer = toBeOverriden;
+            IReadOnlyList<string> longer = toBeOverriden;
 
             if (longer.Count < overriding.Count)
             {
@@ -30,19 +30,19 @@ namespace TreeBasedCli.Internal
 
             for (; i < maxLength; ++i)
             {
-                var line = longer[i];
+                string line = longer[i];
                 yield return line;
             }
         }
         
         public static IEnumerable<string> Indent(string text, int indentSize, int lineLengthLimit)
         {
-            var indentedTextLengthLimit = lineLengthLimit - indentSize;
+            int indentedTextLengthLimit = lineLengthLimit - indentSize;
 
             if (indentedTextLengthLimit <= 0)
                 throw ThrowHelper.TooNarrowConsole(1 - indentedTextLengthLimit);
 
-            var lines = WrapTextTryingNotToCutWords(text, indentedTextLengthLimit).ToArray();
+            string[] lines = WrapTextTryingNotToCutWords(text, indentedTextLengthLimit).ToArray();
             return lines.Select(x => new string(' ', indentSize) + x);
         }
 
@@ -54,12 +54,12 @@ namespace TreeBasedCli.Internal
             if (lineLengthLimit <= 0)
                 throw ThrowHelper.TooNarrowConsole(1 - lineLengthLimit);
             
-            var wrapped = WrapTextTryingNotToCutWords(text, lineLengthLimit).ToArray();
+            string[] wrapped = WrapTextTryingNotToCutWords(text, lineLengthLimit).ToArray();
 
-            for (var i = 0; i < wrapped.Length; ++i)
+            for (int i = 0; i < wrapped.Length; ++i)
             {
-                var line = wrapped[i];
-                var freeSpace = lineLengthLimit - line.Length;
+                string line = wrapped[i];
+                int freeSpace = lineLengthLimit - line.Length;
 
                 if (freeSpace >= 2)
                 {
@@ -78,21 +78,21 @@ namespace TreeBasedCli.Internal
             if (lineLengthLimit <= 0)
                 throw ThrowHelper.TooNarrowConsole(1 - lineLengthLimit);
 
-            var split = text.Split(new char[] { ' ' });
+            string[] split = text.Split(new char[] { ' ' });
             var words = new Stack<string>(split.Reverse());
             var currentLine = new StringBuilder();
 
             bool isLineEmpty() => currentLine.Length == 0;
             string dumpLine()
             {
-                var line = currentLine.ToString();
+                string line = currentLine.ToString();
                 currentLine.Clear();
                 return line;
             }
 
             while (words.Any())
             {
-                var next = words.Pop();
+                string next = words.Pop();
 
                 if (next == "\n")
                 {
@@ -102,12 +102,12 @@ namespace TreeBasedCli.Internal
 
                 if (next.Contains("\n"))
                 {
-                    var indexOf = next.IndexOf("\n");
-                    var before = next.Substring(0, indexOf);
+                    int indexOf = next.IndexOf("\n");
+                    string before = next.Substring(0, indexOf);
 
                     if (indexOf < next.Length - 1)
                     {
-                        var after = next.Substring(indexOf + 1);
+                        string after = next.Substring(indexOf + 1);
                         words.Push(after);
                     }
 
@@ -116,9 +116,9 @@ namespace TreeBasedCli.Internal
                     continue;
                 }
 
-                var appendSpace = !isLineEmpty();
-                var spaceLength = (appendSpace ? 1 : 0);
-                var increasedLength = spaceLength + next.Length;
+                bool appendSpace = !isLineEmpty();
+                int spaceLength = (appendSpace ? 1 : 0);
+                int increasedLength = spaceLength + next.Length;
 
                 // 1) the word can still fit the current line
                 if (currentLine.Length + increasedLength <= lineLengthLimit)
@@ -143,7 +143,7 @@ namespace TreeBasedCli.Internal
                 //    the remainder.
                 if (next.Length > lineLengthLimit)
                 {
-                    var leftSpace = lineLengthLimit - currentLine.Length - spaceLength;
+                    int leftSpace = lineLengthLimit - currentLine.Length - spaceLength;
 
                     if (leftSpace <= 0)
                     {
@@ -152,8 +152,8 @@ namespace TreeBasedCli.Internal
                         continue;
                     }
 
-                    var toPush = next.Substring(0, leftSpace);
-                    var remainder = next.Substring(leftSpace);
+                    string toPush = next.Substring(0, leftSpace);
+                    string remainder = next.Substring(leftSpace);
 
                     if (appendSpace)
                     {

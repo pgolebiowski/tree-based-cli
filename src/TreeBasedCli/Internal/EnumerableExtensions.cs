@@ -17,14 +17,14 @@ namespace TreeBasedCli.Internal
 
         public static void ForEach<T>(this IEnumerable<T> collection, Action<IterationInfo<T>> action)
         {
-            using (var enumerator = collection.GetEnumerator())
+            using (IEnumerator<T> enumerator = collection.GetEnumerator())
             {
-                var thereAreMoreElements = enumerator.MoveNext();
-                var index = 0;
+                bool thereAreMoreElements = enumerator.MoveNext();
+                int index = 0;
 
                 while (thereAreMoreElements)
                 {
-                    var current = enumerator.Current;
+                    T current = enumerator.Current;
                     thereAreMoreElements = enumerator.MoveNext();
 
                     var iteration = new IterationInfo<T>(
@@ -57,7 +57,7 @@ namespace TreeBasedCli.Internal
 
                 if (!x.IsLastIteration)
                 {
-                    for (var i = 0; i < numberOfElementsToInject; ++i)
+                    for (int i = 0; i < numberOfElementsToInject; ++i)
                     {
                         result.Add(elementToInject);
                     }
