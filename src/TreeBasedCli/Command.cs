@@ -4,6 +4,9 @@ using TreeBasedCli.Internal;
 
 namespace TreeBasedCli
 {
+    /// <summary>
+    /// Represents a command that can be executed in a command-line interface.
+    /// </summary>
     public class Command
     {
         public Command(string label, string[] description)
@@ -12,13 +15,22 @@ namespace TreeBasedCli
             this.Description = description;
         }
 
+        /// <summary>
+        /// Gets the label of the command, which is used to identify it in the command-line interface.
+        /// </summary>
         public string Label { get; }
+
+        /// <summary>
+        /// Gets the description of the command, which explains what the command does.
+        /// This property is an array, because each element is a going to be rendered
+        /// as a separate paragraph in the help panel.
+        /// </summary>
         public string[] Description { get; }
 
         internal BranchCommand? Parent { get; set; }
         internal CommandTree? Tree { get; set; }
 
-        public string LabelVisibleForUserInConsole
+        internal string LabelVisibleForUserInConsole
         {
             get
             {
@@ -33,7 +45,7 @@ namespace TreeBasedCli
             }
         }
 
-        public IReadOnlyCollection<Command> Path
+        internal IReadOnlyCollection<Command> Path
         {
             get
             {
@@ -48,10 +60,10 @@ namespace TreeBasedCli
             }
         }
 
-        public string ConsoleArgumentsRepresentingPath
+        internal string ConsoleArgumentsRepresentingPath
             => this.Path.Select(x => x.LabelVisibleForUserInConsole).Join(" ");
 
-        public string ConsoleArgumentsRepresentingHelpPath
+        internal string ConsoleArgumentsRepresentingHelpPath
         {
             get
             {

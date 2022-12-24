@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,6 +17,10 @@ namespace TreeBasedCli
     public partial class CommandArgument : ICommandArgument
     {
         private readonly string optionLabel;
+
+        /// <summary>
+        /// The raw value of the argument, as provided by the user.
+        /// </summary>
         private readonly IReadOnlyCollection<string> raw;
 
         public CommandArgument(Command command, string optionLabel, IReadOnlyCollection<string> raw)
@@ -32,8 +35,13 @@ namespace TreeBasedCli
         public Command Command { get; }
 
         public int Count { get; }
+
         public IReadOnlyCollection<string> Values => this.raw;
 
+        /// <summary>
+        /// Gets the single value of this argument, throwing a <see cref="WrongCommandUsageException" />
+        /// if the number of values is not equal to 1.
+        /// </summary>
         public string ExpectedAsSingleValue()
         {
             if (this.Count != 1)
@@ -50,6 +58,11 @@ namespace TreeBasedCli
             return this.raw.First();
         }
 
+        /// <summary>
+        /// Gets the single value of this argument, interpreted as a path to an existing file.
+        /// This method throws a <see cref="WrongCommandUsageException" /> if the number of values is
+        /// not equal to 1. It throws a <see cref="MessageOnlyException" /> if the specified file does not exist.
+        /// </summary>
         public string ExpectedAsSinglePathToExistingFile()
         {
             string path = this.ExpectedAsSingleValue();
