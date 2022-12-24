@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TreeBasedCli.Internal;
 
@@ -25,7 +26,7 @@ namespace TreeBasedCli
             return this.argumentsAsDictionary.ContainsKey(optionLabel);
         }
 
-        public bool TryGetArgument(string optionLabel, out ICommandArgument result)
+        public bool TryGetArgument(string optionLabel, [NotNullWhen(true)] out ICommandArgument? result)
         {
             if (this.argumentsAsDictionary.TryGetValue(optionLabel, out IReadOnlyCollection<string>? found))
             {
@@ -41,7 +42,7 @@ namespace TreeBasedCli
 
         public ICommandArgument? GetArgumentOrNull(string optionLabel)
         {
-            if (this.TryGetArgument(optionLabel, out ICommandArgument result))
+            if (this.TryGetArgument(optionLabel, out ICommandArgument? result))
             {
                 return result;
             }
@@ -52,7 +53,7 @@ namespace TreeBasedCli
         public ICommandArgument GetArgument(string optionLabel)
         {
             ICommandArgument? found = this.GetArgumentOrNull(optionLabel);
-            
+
             if (found != null)
             {
                 return found;
