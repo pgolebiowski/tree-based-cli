@@ -1,6 +1,6 @@
 using System;
 
-namespace TreeBasedCli.Sample
+namespace Samples.AnimalKingdom
 {
     public class ConsoleUserInterface : IUserInterface
     {

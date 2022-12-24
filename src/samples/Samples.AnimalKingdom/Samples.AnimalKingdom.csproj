@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\TreeBasedCli\TreeBasedCli.csproj" />
+    <ProjectReference Include="..\..\TreeBasedCli\TreeBasedCli.csproj" />
   </ItemGroup>
 
   <ItemGroup>

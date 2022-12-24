@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
+using TreeBasedCli;
 using TreeBasedCli.DependencyInjection;
 
-namespace TreeBasedCli.Sample
+namespace Samples.AnimalKingdom
 {
     public class CreateDogCommand :
         LeafCommand<

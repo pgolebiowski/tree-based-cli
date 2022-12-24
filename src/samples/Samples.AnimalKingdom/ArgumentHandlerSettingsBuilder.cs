@@ -1,11 +1,13 @@
-namespace TreeBasedCli.Sample
+using TreeBasedCli;
+
+namespace Samples.AnimalKingdom
 {
     internal static class ArgumentHandlerSettingsBuilder
     {
         public static ArgumentHandlerSettings Build()
             => new ArgumentHandlerSettings
             (
-                name: "Animal Factory",
+                name: "Animal Kingdom",
                 version: "1.0",
                 commandTree: new CommandTree
                 {
@@ -17,7 +19,7 @@ namespace TreeBasedCli.Sample
             => new BranchCommandBuilder(label: "af")
                 .WithDesription(new[]
                 {
-                    "This program produces animals."
+                    "This program prints animals."
                 })
                 .WithChildCommand(new CreateDogCommand())
                 .WithChildCommand(new CreateCatCommand())

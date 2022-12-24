@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using TreeBasedCli;
 
-namespace TreeBasedCli.Sample
+namespace Samples.AnimalKingdom
 {
     internal class Program
     {

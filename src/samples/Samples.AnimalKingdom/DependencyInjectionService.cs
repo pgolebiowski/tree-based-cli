@@ -2,7 +2,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using TreeBasedCli.DependencyInjection;
 
-namespace TreeBasedCli.Sample
+namespace Samples.AnimalKingdom
 {
     public sealed class DependencyInjectionService : IDependencyInjectionService
     {

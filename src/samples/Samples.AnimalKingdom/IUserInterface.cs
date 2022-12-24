@@ -1,4 +1,4 @@
-namespace TreeBasedCli.Sample
+namespace Samples.AnimalKingdom
 {
     public interface IUserInterface
     {
