@@ -4,10 +4,7 @@ namespace TreeBasedCli
 {
     public class CommandOption
     {
-        public string Label { get; }
-        public string[] Description { get; set; }
-
-        public CommandOption(string label)
+        public CommandOption(string label, string[] description)
         {
             if (string.IsNullOrWhiteSpace(label))
             {
@@ -17,6 +14,11 @@ namespace TreeBasedCli
             }
 
             this.Label = label;
+
+            this.Description = description;
         }
+
+        public string Label { get; }
+        public string[] Description { get; }
     }
 }

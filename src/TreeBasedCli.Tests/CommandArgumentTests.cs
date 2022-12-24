@@ -18,7 +18,9 @@ namespace TreeBasedCli.Tests
                 Label = "verb",
                 Options = new[]
                 {
-                    new CommandOption(argumentLabel)
+                    new CommandOption(
+                        label: argumentLabel,
+                        description: new string[] { })
                 },
                 TaskToRun = args =>
                 {

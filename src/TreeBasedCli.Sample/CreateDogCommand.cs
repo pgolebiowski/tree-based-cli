@@ -20,13 +20,13 @@ namespace TreeBasedCli.Sample
             };
             this.Options = new[]
             {
-                new CommandOption(NameLabel)
-                {
-                    Description = new[]
+                new CommandOption(
+                    label: NameLabel,
+                    description: new[]
                     {
                         "Required. The name of the dog to print."
                     }
-                },
+                ),
             };
         }
 
