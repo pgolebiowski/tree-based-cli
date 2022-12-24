@@ -169,7 +169,7 @@ namespace TreeBasedCli
                 }
                 else if (targetCommand is BranchCommand branchCommand)
                 {
-                    if (branchCommand.TryGetChildCommand(argument, out Command childCommand))
+                    if (branchCommand.TryGetChildCommand(argument, out Command? childCommand))
                     {
                         consumedArguments++;
                         targetCommand = childCommand;

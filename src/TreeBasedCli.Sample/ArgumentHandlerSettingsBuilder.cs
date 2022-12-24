@@ -14,18 +14,13 @@ namespace TreeBasedCli.Sample
             );
 
         private static Command BuildCommandTree()
-            => new BranchCommand
-            {
-                Label = "af",
-                Description = new[]
+            => new BranchCommandBuilder(label: "af")
+                .WithDesription(new[]
                 {
                     "This program produces animals."
-                },
-                ChildCommands = new Command[]
-                {
-                    new CreateDogCommand(),
-                    new CreateCatCommand(),
-                }
-            };
+                })
+                .WithChildCommand(new CreateDogCommand())
+                .WithChildCommand(new CreateCatCommand())
+                .Build();
     }
 }
