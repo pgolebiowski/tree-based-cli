@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace TreeBasedCli
 {
-    public class LeafCommand : Command
+    public abstract class LeafCommand : Command
     {
         public LeafCommand(
             string label,
@@ -16,7 +16,8 @@ namespace TreeBasedCli
         }
 
         public IReadOnlyList<CommandOption> Options { get; }
-        public Func<CommandArguments, Task> TaskToRun { get; set; }
+
+        public abstract Task TaskToRun(CommandArguments commandArguments);
 
         public IReadOnlySet<string> OptionLabels
         {

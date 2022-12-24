@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TreeBasedCli.DependencyInjection
 {
@@ -21,31 +22,26 @@ namespace TreeBasedCli.DependencyInjection
                 : base(label, description, options)
         {
             this.dependencyInjectionService = dependencyInjectionService;
-
-            this.ConfigureTaskToRun();
         }
 
-        private void ConfigureTaskToRun()
+        public override Task TaskToRun(CommandArguments commandArguments)
         {
-            this.TaskToRun = arguments =>
+            TParser parser = this.dependencyInjectionService.ResolveParser<TArguments, TParser>();
+            THandler handler = this.dependencyInjectionService.ResolveHandler<TArguments, THandler>();
+
+            IParseResult<TArguments> parseResult = parser.Parse(commandArguments);
+
+            switch (parseResult)
             {
-                TParser parser = this.dependencyInjectionService.ResolveParser<TArguments, TParser>();
-                THandler handler = this.dependencyInjectionService.ResolveHandler<TArguments, THandler>();
+                case SuccessfulParseResult<TArguments> successResult:
+                    return handler.HandleAsync(successResult.Value, this);
 
-                IParseResult<TArguments> parseResult = parser.Parse(arguments);
+                case FailedParseResult<TArguments> failedResult:
+                    throw new WrongCommandUsageException(this, failedResult.ErrorMessage);
 
-                switch (parseResult)
-                {
-                    case SuccessfulParseResult<TArguments> successResult:
-                        return handler.HandleAsync(successResult.Value, this);
-
-                    case FailedParseResult<TArguments> failedResult:
-                        throw new WrongCommandUsageException(this, failedResult.ErrorMessage);
-
-                    default:
-                        throw new Exception($"Unknown parse result type: '{parseResult.GetType().Name}'.");
-                }
-            };
+                default:
+                    throw new Exception($"Unknown parse result type: '{parseResult.GetType().Name}'.");
+            }
         }
     }
 }

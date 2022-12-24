@@ -136,7 +136,7 @@ namespace TreeBasedCli
 
                 var commandArguments = new CommandArguments(leafCommand, notConsumedArguments);
 
-                await leafCommand.TaskToRun.Invoke(commandArguments);
+                await leafCommand.TaskToRun(commandArguments);
             }
             else
             {
