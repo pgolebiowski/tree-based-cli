@@ -26,11 +26,11 @@ namespace TreeBasedCli
             return this.argumentsAsDictionary.ContainsKey(optionLabel);
         }
 
-        public bool TryGetArgument(string optionLabel, [NotNullWhen(true)] out ICommandArgument? result)
+        public bool TryGetArgument(string optionLabel, [NotNullWhen(true)] out IUserInputToCommandOption? result)
         {
             if (this.argumentsAsDictionary.TryGetValue(optionLabel, out IReadOnlyCollection<string>? found))
             {
-                result = new CommandArgument(this.Command, optionLabel, found);
+                result = new UserInputToCommandOption(this.Command, optionLabel, found);
                 return true;
             }
             else
@@ -40,9 +40,9 @@ namespace TreeBasedCli
             }
         }
 
-        public ICommandArgument? GetArgumentOrNull(string optionLabel)
+        public IUserInputToCommandOption? GetArgumentOrNull(string optionLabel)
         {
-            if (this.TryGetArgument(optionLabel, out ICommandArgument? result))
+            if (this.TryGetArgument(optionLabel, out IUserInputToCommandOption? result))
             {
                 return result;
             }
@@ -50,9 +50,9 @@ namespace TreeBasedCli
             return null;
         }
 
-        public ICommandArgument GetArgument(string optionLabel)
+        public IUserInputToCommandOption GetArgument(string optionLabel)
         {
-            ICommandArgument? found = this.GetArgumentOrNull(optionLabel);
+            IUserInputToCommandOption? found = this.GetArgumentOrNull(optionLabel);
 
             if (found != null)
             {

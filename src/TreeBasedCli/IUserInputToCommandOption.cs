@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TreeBasedCli
 {
-    public interface ICommandArgument
+    public interface IUserInputToCommandOption
     {
         Command Command { get; }
 

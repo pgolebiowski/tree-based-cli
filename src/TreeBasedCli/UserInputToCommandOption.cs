@@ -14,7 +14,7 @@ namespace TreeBasedCli
     /// expected to be a single value only). This class is intended
     /// to facilitate parsing of most common types of arguments.
     /// </summary>
-    public partial class CommandArgument : ICommandArgument
+    public partial class UserInputToCommandOption : IUserInputToCommandOption
     {
         private readonly string optionLabel;
 
@@ -23,7 +23,7 @@ namespace TreeBasedCli
         /// </summary>
         private readonly IReadOnlyCollection<string> raw;
 
-        public CommandArgument(Command command, string optionLabel, IReadOnlyCollection<string> raw)
+        public UserInputToCommandOption(Command command, string optionLabel, IReadOnlyCollection<string> raw)
         {
             this.Command = command;
             this.optionLabel = optionLabel;
