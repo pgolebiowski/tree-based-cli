@@ -3,17 +3,36 @@
 [nuget]:     https://www.nuget.org/packages/TreeBasedCli
 [nuget-img]: https://badge.fury.io/nu/TreeBasedCli.svg
 
-# Tree-based command-line arguments parser
+# TreeBasedCli
 
-## Install
+## 1. What is this?
+
+Welcome to TreeBasedCli, a C# library that allows you to create a command-line interface with nested subcommands. With this library, you can easily modify the structure of your command tree and provide automatically generated documentation to help your users navigate your application.
+
+## 2. Key features
+
+* **Nested subcommands.** Create a command-line interface with multiple levels of subcommands to easily organize and structure your application's functionality.
+* **Asynchronous command execution.** Native support for `Task`-based command execution.
+* **Intuitive documentation.** The library generates clear and concise documentation on the fly, providing users with context-specific guidelines for using your application, in particular if they use your application incorrectly or just want to explore what is available.
+* **Individual class for each command.** Each leaf command has its own class with the command definition, input parser, and asynchronous handler. The library also includes a lightweight dependency injection interface for custom DI type resolution.
+
+## 3. Getting started
+
+To install TreeBasedCli, use the following command:
 
 ```
 dotnet add package TreeBasedCli
 ```
 
-## About
+## 4. Contributions
 
-This library offers a framework for building a user interface with arbitrarily nested subcommands. Here is an example of a command-line interface you could build:
+We welcome contributions to TreeBasedCli! If you have an idea for a new feature or a bug fix, please open an issue or create a pull request.
+
+## 5. Show me the code!
+
+### 5.1. Example command
+
+Here is an example of a command-line interface you could build:
 
 ```
 $ cryptokit cryptographic-algorithms aes-gcm-256 encrypt \
@@ -21,18 +40,9 @@ $ cryptokit cryptographic-algorithms aes-gcm-256 encrypt \
     --output out
 ```
 
-## Goals
+### 5.2. Automatically generated documentation
 
-* Asynchronous command execution
-* Trivial command-tree structure modifications
-* Documentation generated automatically
-* Intuitive navigation
-
-## Automatically generated documentation
-
-The framework generates documentation on the fly. If your customers use your application incorrectly or just want to explore what is available, the library will present them with concise contextual guidelines.
-
-For example, if a user knows absolutely nothing about a program and invokes it without any arguments or with `-h`, `--help`, or `help`, the outcome would be similar to this:
+If a user knows absolutely nothing about a program and invokes it without any arguments or with `-h`, `--help`, or `help`, the outcome would be similar to this:
 
 ```
 $ cryptokit
@@ -75,6 +85,8 @@ $ cryptokit
         cryptokit help <child command>
 ```
 
+### 5.3. Exploring subcommands
+
 A user may want to explore a particular command and see what subcommands are assigned to it. For example:
 
 ```
@@ -116,6 +128,8 @@ $ cryptokit cryptographic-algorithms aes-gcm-256
         cryptokit help cryptographic-algorithms aes-gcm-256 <child command>
 ```
 
+### 5.4. Reporting wrong command usage errors
+
 If an error occurs, for example if required options are not provided:
 
 ```
@@ -151,138 +165,79 @@ If an error occurs, for example if required options are not provided:
                     written.
 ```
 
+### 5.5. How to code the handler for an individual command
+
 When a customer correctly specifies a subcommand, the library takes care of invoking the right function, and feeding it with pre-parsed arguments.
 
+Here is the class for the command we saw above (you can find it in the sample CLI applications):
+
 ```csharp
-private static void Decrypt(CommandArguments args)
+public class DecryptWithAesGcm256Command :
+    LeafCommand<
+        DecryptWithAesGcm256Command.Arguments,
+        DecryptWithAesGcm256Command.Parser,
+        DecryptWithAesGcm256Command.Handler>
 {
-    // ...
-}
-```
+    private const string InputLabel = "--input";
+    private const string OutputLabel = "--output";
 
-## How do I use it?
-
-You have to create an object `ArgumentHandlerSettings`, feed it to `ArgumentHandler`, and run it on program arguments:
-
-```csharp
-private static void Main(string[] arguments)
-{
-    var argumentHandlerSettings = new ArgumentHandlerSettings
-    {
-        Name = "Animal Kingdom",
-        Version = "v1.0",
-        CommandTree = new CommandTree
+    public DecryptWithAesGcm256Command() : base(
+        label: "decrypt",
+        description: new[]
         {
-            Root = BuildCommandTree()
-        }
-    };
-
-    var argumentHandler = new ArgumentHandler(argumentHandlerSettings);
-    argumentHandler.Handle(arguments);
-}
-```
-
-The tree of commands could be for example:
-
-```csharp
-private static Command BuildCommandTree()
-    => new BranchCommand
-    {
-        Label = "animal-kingdom",
-        Description = new[]
-        {
-            "Prints animals."
+            "Decrypts the specified file using a cryptographic key and additional authenticated data."
         },
-        ChildCommands = new Command[]
+        options: new[]
         {
-            BuildDogCommand(),
-            BuildCatCommand()
-        }
-    };
+            new CommandOption(
+                label: InputLabel,
+                description: new[]
+                {
+                    "The path to the input file that is to be decrypted."
+                }
+            ),
+            new CommandOption(
+                label: OutputLabel,
+                description: new[]
+                {
+                    "The path to the output file where the decrypted data is to be written."
+                }
+            ),
+        },
+        DependencyInjectionService.Instance)
+    { }
 
-private static Command BuildDogCommand()
-    => new LeafCommand
+    public record Arguments(string InputPath, string OutputPath) : IParsedCommandArguments;
+
+    public class Parser : ICommandArgumentParser<Arguments>
     {
-        Label = "dog",
-        Description = new[] { "Print a dog." },
-        TaskToRun = x =>
+        public IParseResult<Arguments> Parse(CommandArguments arguments)
         {
-            Console.WriteLine("🐩");
+            string inputPath = arguments.GetArgument(InputLabel).ExpectedAsSinglePathToExistingFile();
+            string outputPath = arguments.GetArgument(OutputLabel).ExpectedAsSingleValue();
+
+            var result = new Arguments(
+                InputPath: inputPath,
+                OutputPath: outputPath
+            );
+
+            return new SuccessfulParseResult<Arguments>(result);
+        }
+    }
+
+    public class Handler : ICommandHandler<Arguments>
+    {
+        public Task HandleAsync(Arguments arguments, LeafCommand _)
+        {
+            Console.WriteLine($"decrypting file {arguments.InputPath}");
+            Console.WriteLine($"writing output to {arguments.OutputPath}");
             return Task.CompletedTask;
         }
-    };
-
-private static Command BuildCatCommand()
-    => new LeafCommand
-    {
-        Label = "cat",
-        Description = new[] { "Print a cat." },
-        TaskToRun = x =>
-        {
-            Console.WriteLine("🐈");
-            return Task.CompletedTask;
-        }
-    };
+    }
+}
 ```
 
-If the program is invoked without arguments, the library generates:
+### 5.6. How do I get started with the code?
 
-```
-$ animal-kingdom
+See the sample applications: `CryptoKit` and `AnimalKingdom`.
 
-                                                    Animal Kingdom
-                                                         v1.0
-
-
-    Command description:
-
-        Prints animals.
-
-
-
-    Usage:
-
-        animal-kingdom <child command>
-
-
-
-    Child commands:
-
-        dog    Print a dog.
-
-
-        cat    Print a cat.
-
-
-
-    For more details on a particular child command, run:
-
-        animal-kingdom help <child command>
-```
-
-If a help on a command is requested:
-
-```
-$ animal-kingdom help cat
-
-                                                    Animal Kingdom
-                                                         v1.0
-
-
-    Command description:
-
-        Print a cat.
-
-
-
-    Usage:
-
-        animal-kingdom cat
-```
-
-And if a particular subcommand is selected:
-
-```
-$ animal-kingdom dog
-🐩
-```
