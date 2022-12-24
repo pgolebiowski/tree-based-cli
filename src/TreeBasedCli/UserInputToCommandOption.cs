@@ -7,36 +7,35 @@ using TreeBasedCli.Internal;
 namespace TreeBasedCli
 {
     /// <summary>
-    /// Represents the value provided as an argument to a single
-    /// command option. In general, it is a sequence of strings.
-    /// However, the user may have custom requirements on the
-    /// format of this sequence (e.g. in particular, it may be
-    /// expected to be a single value only). This class is intended
-    /// to facilitate parsing of most common types of arguments.
+    /// Represents the input that the user provided to a single command option as
+    /// a sequence of space-separated texts. It facilitates parsing of the most
+    /// common types of user arguments, including: a single-word text, an integer,
+    /// a path to an existing file, a path to an existing directory.
     /// </summary>
     public partial class UserInputToCommandOption : IUserInputToCommandOption
     {
         private readonly string optionLabel;
 
-        /// <summary>
-        /// The raw value of the argument, as provided by the user.
-        /// </summary>
-        private readonly IReadOnlyCollection<string> raw;
+        private readonly IReadOnlyCollection<string> userInput;
+        private readonly int numberOfWordsInUserInput;
 
-        public UserInputToCommandOption(Command command, string optionLabel, IReadOnlyCollection<string> raw)
+        public UserInputToCommandOption(
+            Command command, string optionLabel, IReadOnlyCollection<string> userInput)
         {
             this.Command = command;
-            this.optionLabel = optionLabel;
-            this.raw = raw;
 
-            this.Count = this.raw.Count;
+            this.optionLabel = optionLabel;
+
+            this.userInput = userInput;
+            this.numberOfWordsInUserInput = this.userInput.Count;
         }
 
+        /// <summary>
+        /// The command to which the corresponding option belongs.
+        /// </summary>
         public Command Command { get; }
 
-        public int Count { get; }
-
-        public IReadOnlyCollection<string> Values => this.raw;
+        public IReadOnlyCollection<string> Values => this.userInput;
 
         /// <summary>
         /// Gets the single value of this argument, throwing a <see cref="WrongCommandUsageException" />
@@ -44,9 +43,9 @@ namespace TreeBasedCli
         /// </summary>
         public string ExpectedAsSingleValue()
         {
-            if (this.Count != 1)
+            if (this.numberOfWordsInUserInput != 1)
             {
-                string countingWord = this.Count == 0 ? "none was" : $"{this.Count} were";
+                string countingWord = this.numberOfWordsInUserInput == 0 ? "none was" : $"{this.numberOfWordsInUserInput} were";
 
                 ThrowHelper.WrongCommandUsage(
                     this.Command,
@@ -55,13 +54,13 @@ namespace TreeBasedCli
                     $"but {countingWord} provided.");
             }
 
-            return this.raw.First();
+            return this.userInput.First();
         }
 
         /// <summary>
         /// Gets the single value of this argument, interpreted as a path to an existing file.
-        /// This method throws a <see cref="WrongCommandUsageException" /> if the number of values is
-        /// not equal to 1. It throws a <see cref="MessageOnlyException" /> if the specified file does not exist.
+        /// This method throws a <see cref="WrongCommandUsageException" /> if the number of values is not equal to 1.
+        /// It throws a <see cref="MessageOnlyException" /> if the specified file does not exist.
         /// </summary>
         public string ExpectedAsSinglePathToExistingFile()
         {
@@ -76,6 +75,11 @@ namespace TreeBasedCli
             return path;
         }
 
+        /// <summary>
+        /// Gets the single value of this argument, interpreted as a path to an existing directory.
+        /// This method throws a <see cref="WrongCommandUsageException" /> if the number of values is not equal to 1.
+        /// It throws a <see cref="MessageOnlyException" /> if the specified directory does not exist.
+        /// </summary>
         public string ExpectedAsSinglePathToExistingDirectory()
         {
             string path = this.ExpectedAsSingleValue();
@@ -89,6 +93,11 @@ namespace TreeBasedCli
             return path;
         }
 
+        /// <summary>
+        /// Gets the single value of this argument, interpreted as an integer.
+        /// This method throws a <see cref="WrongCommandUsageException" /> if the number of values is not equal to 1.
+        /// It throws a <see cref="MessageOnlyException" /> if the value cannot be parsed as an integer.
+        /// </summary>
         public int ExpectedAsSingleInteger()
         {
             string value = this.ExpectedAsSingleValue();
@@ -101,6 +110,11 @@ namespace TreeBasedCli
             throw new MessageOnlyException($"Could not parse '{value}' as an integer.");
         }
 
+        /// <summary>
+        /// Gets the single value of this argument, interpreted as a value of the specified enumeration type.
+        /// This method throws a <see cref="WrongCommandUsageException" /> if the number of values is not equal to 1.
+        /// It throws a <see cref="MessageOnlyException" /> if the value cannot be mapped to a value of the specified enumeration type.
+        /// </summary>
         public TEnum ExpectedAsEnumValue<TEnum>() where TEnum : struct, Enum
         {
             string value = this.ExpectedAsSingleValue();

@@ -7,7 +7,6 @@ namespace TreeBasedCli
     {
         Command Command { get; }
 
-        int Count { get; }
         IReadOnlyCollection<string> Values { get; }
 
         string ExpectedAsSingleValue();
