@@ -1,6 +1,4 @@
-using System;
 using Xunit;
-using TreeBasedCli;
 using System.Threading.Tasks;
 
 namespace TreeBasedCli.Tests
@@ -28,13 +26,14 @@ namespace TreeBasedCli.Tests
                     return Task.CompletedTask;
                 }
             };
-            var handler = new ArgumentHandler(new ArgumentHandlerSettings
+
+            var commandTree = new CommandTree
             {
-                CommandTree = new CommandTree
-                {
-                    Root = command
-                }
-            });
+                Root = command
+            };
+
+            var handler = new ArgumentHandler(
+                new ArgumentHandlerSettings(name: "name", version: "version", commandTree));
 
             // when
             await handler.HandleAsync(new[] { "--enum-value", "Two" });
