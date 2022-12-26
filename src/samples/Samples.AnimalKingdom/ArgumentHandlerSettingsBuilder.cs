@@ -9,10 +9,8 @@ namespace Samples.AnimalKingdom
             (
                 name: "Animal Kingdom",
                 version: "1.0",
-                commandTree: new CommandTree
-                {
-                    Root = BuildCommandTree()
-                }
+                commandTree: new CommandTree(
+                    root: BuildCommandTree())
             );
 
         private static Command BuildCommandTree()

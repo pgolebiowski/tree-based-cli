@@ -9,10 +9,8 @@ namespace Samples.CryptoKit
             (
                 name: "Crypto Kit",
                 version: "1.0",
-                commandTree: new CommandTree
-                {
-                    Root = BuildCommandTree()
-                }
+                commandTree: new CommandTree(
+                    root: BuildCommandTree())
             );
 
         private static Command BuildCommandTree()

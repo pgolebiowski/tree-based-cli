@@ -45,10 +45,7 @@ namespace TreeBasedCli.Tests
             var resultHolder = new FutureValueHolder<SampleEnum>();
             var command = new SampleCommand(resultHolder);
 
-            var commandTree = new CommandTree
-            {
-                Root = command
-            };
+            var commandTree = new CommandTree(root: command);
 
             var handler = new ArgumentHandler(
                 new ArgumentHandlerSettings(name: "name", version: "version", commandTree));

@@ -28,7 +28,11 @@ namespace TreeBasedCli
         public string[] Description { get; }
 
         internal BranchCommand? Parent { get; set; }
-        internal CommandTree? Tree { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="CommandTree" /> that this command belongs to.
+        /// </summary>
+        public CommandTree? Tree { get; set; }
 
         /// <summary>
         /// Gets the command in the form of a command-line prompt that can be executed
@@ -71,7 +75,7 @@ namespace TreeBasedCli
         {
             get
             {
-                string rootLabel = this.Tree.Root.LabelVisibleForUserInConsole;
+                string? rootLabel = this.Tree?.Root.LabelVisibleForUserInConsole;
                 IEnumerable<Command> remainingPath = this.Path.Skip(1);
 
                 if (remainingPath.IsEmpty())

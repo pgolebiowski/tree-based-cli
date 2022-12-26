@@ -7,21 +7,17 @@ namespace TreeBasedCli
     /// </summary>
     public class CommandTree
     {
-        private Command root;
-
-        public Command Root
+        public CommandTree(Command root)
         {
-            get => this.root;
-            set
-            {
-                this.root = value;
-                this.SetParentReferences(this.root, parentNode: null);
-            }
+            this.Root = root;
+            this.SetParentReferences(this.Root, parentNode: null);
         }
+
+        public Command Root { get; }
 
         private void SetParentReferences(
             Command node,
-            BranchCommand parentNode)
+            BranchCommand? parentNode)
         {
             if (node == null)
             {
