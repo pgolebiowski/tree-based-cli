@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TreeBasedCli.Internal;
 
-namespace TreeBasedCli.Internal
+namespace TreeBasedCli.HelpGuideGeneration
 {
     internal static class TextFormatter
     {

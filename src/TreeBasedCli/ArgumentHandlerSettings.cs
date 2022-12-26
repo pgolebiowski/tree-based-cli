@@ -1,4 +1,4 @@
-using TreeBasedCli.Internal;
+using TreeBasedCli.HelpGuideGeneration;
 
 namespace TreeBasedCli
 {

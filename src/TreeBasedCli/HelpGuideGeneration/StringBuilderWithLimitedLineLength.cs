@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TreeBasedCli.Internal;
 
-namespace TreeBasedCli.Internal
+namespace TreeBasedCli.HelpGuideGeneration
 {
     internal class StringBuilderWithLimitedLineLength
     {

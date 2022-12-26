@@ -1,4 +1,4 @@
-namespace TreeBasedCli
+namespace TreeBasedCli.HelpGuideGeneration
 {
     public interface IHelpProvider
     {

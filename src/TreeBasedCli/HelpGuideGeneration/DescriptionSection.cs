@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TreeBasedCli.Internal
+namespace TreeBasedCli.HelpGuideGeneration
 {
     internal class DescriptionSection : CompositeSectionBuilder
     {

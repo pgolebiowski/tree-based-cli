@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TreeBasedCli.Internal;
 
-namespace TreeBasedCli.Internal
+namespace TreeBasedCli.HelpGuideGeneration
 {
     internal class DefaultHelpProvider : IHelpProvider
     {
