@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TreeBasedCli.Exceptions;
 using TreeBasedCli.Internal;
 
 namespace TreeBasedCli.HelpGuideGeneration
@@ -29,7 +30,7 @@ namespace TreeBasedCli.HelpGuideGeneration
                     $"The command '{command.PathAsExecutableCliPrompt}' " +
                     "is not fully implemented. Code needs to be changed. You can either " +
                     "define child commands or turn this branch command into a leaf command.");
-            
+
             help.AppendSection(new DescriptionSection(command.Description));
 
             if (thereAreChildCommands)
@@ -86,10 +87,8 @@ namespace TreeBasedCli.HelpGuideGeneration
 
             AppendErrorSection(help,
                 exception,
-                notImplementedCondition: command.TaskToRun == null,
-                notImplementedMessage:
-                    $"The command '{command.PathAsExecutableCliPrompt}' " +
-                    $"does not have an assigned action to invoke.");
+                notImplementedCondition: false,
+                notImplementedMessage: null);
 
             help.AppendSection(new DescriptionSection(command.Description));
             help.AppendSection(new EmptySection(linesCount: 3));
@@ -137,7 +136,7 @@ namespace TreeBasedCli.HelpGuideGeneration
             StringBuilderWithLimitedLineLength help,
             WrongCommandUsageException exception,
             bool notImplementedCondition,
-            string notImplementedMessage)
+            string? notImplementedMessage)
         {
             bool thereWasException = exception != null;
             var errors = new List<string>();
@@ -149,10 +148,7 @@ namespace TreeBasedCli.HelpGuideGeneration
 
             if (notImplementedCondition)
             {
-                if (!(thereWasException && exception is MissingCommandImplementationException))
-                {
-                    errors.Add(notImplementedMessage);
-                }
+                errors.Add(notImplementedMessage);
             }
 
             if (!errors.IsEmpty())

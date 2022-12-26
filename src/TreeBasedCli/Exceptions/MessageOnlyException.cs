@@ -1,6 +1,6 @@
 using System;
 
-namespace TreeBasedCli
+namespace TreeBasedCli.Exceptions
 {
     /// <summary>
     /// Represents an exception that can be constructed with a message only.

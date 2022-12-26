@@ -1,6 +1,6 @@
 using System;
 
-namespace TreeBasedCli
+namespace TreeBasedCli.Exceptions
 {
     /// <summary>
     /// Represents an error that occurs when the user provides an invalid

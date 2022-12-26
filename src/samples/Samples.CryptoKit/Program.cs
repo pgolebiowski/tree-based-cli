@@ -1,4 +1,5 @@
 ﻿using TreeBasedCli;
+using TreeBasedCli.Exceptions;
 
 namespace Samples.CryptoKit
 {

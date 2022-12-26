@@ -1,6 +1,7 @@
 using System;
+using TreeBasedCli.Internal;
 
-namespace TreeBasedCli.Internal
+namespace TreeBasedCli.Exceptions
 {
     internal partial class ThrowHelper
     {
@@ -12,16 +13,10 @@ namespace TreeBasedCli.Internal
                 $"The console is too narrow. Increase its width by {increaseWidthBy}.");
 
         public static Exception MessageOnlyException(params string[] text)
-            =>  throw new MessageOnlyException(text.Join());
+            => throw new MessageOnlyException(text.Join());
 
         public static Exception WrongCommandUsage(Command command, params string[] message)
             => throw new WrongCommandUsageException(command, message.Join());
-        
-        public static Exception MissingCommandImplementation(Command command, params string[] message)
-            => throw new MissingCommandImplementationException(command, message.Join());
-        
-        public static Exception NotImplemented(params string[] message)
-            => throw new NotImplementedException(message.Join());
 
         internal static Exception UnrecognizedType(object obj)
         {

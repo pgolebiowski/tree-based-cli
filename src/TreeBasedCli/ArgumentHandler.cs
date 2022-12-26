@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TreeBasedCli.Exceptions;
 using TreeBasedCli.Internal;
 
 namespace TreeBasedCli
@@ -126,16 +127,7 @@ namespace TreeBasedCli
             }
             else if (targetCommand is LeafCommand leafCommand)
             {
-                if (leafCommand.TaskToRun == null)
-                {
-                    throw ThrowHelper.MissingCommandImplementation(
-                        leafCommand,
-                        $"The command '{leafCommand.PathAsExecutableCliPrompt}' ",
-                        $"does not have an assigned action to invoke.");
-                }
-
                 var commandArguments = new CommandArguments(leafCommand, notConsumedArguments);
-
                 await leafCommand.TaskToRun(commandArguments);
             }
             else

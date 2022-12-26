@@ -1,3 +1,5 @@
+using TreeBasedCli.Exceptions;
+
 namespace TreeBasedCli.HelpGuideGeneration
 {
     public interface IHelpProvider

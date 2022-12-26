@@ -1,3 +1,4 @@
+using TreeBasedCli.Exceptions;
 using TreeBasedCli.Internal;
 
 namespace TreeBasedCli
