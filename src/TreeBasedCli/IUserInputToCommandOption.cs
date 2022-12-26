@@ -7,7 +7,8 @@ namespace TreeBasedCli
     {
         Command Command { get; }
 
-        IReadOnlyCollection<string> Values { get; }
+        IReadOnlyCollection<string> UserInput { get; }
+        int UserInputWordCount { get; }
 
         string ExpectedAsSingleValue();
         string ExpectedAsSinglePathToExistingFile();

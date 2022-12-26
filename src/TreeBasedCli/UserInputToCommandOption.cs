@@ -16,9 +16,6 @@ namespace TreeBasedCli
     {
         private readonly string optionLabel;
 
-        private readonly IReadOnlyCollection<string> userInput;
-        private readonly int numberOfWordsInUserInput;
-
         public UserInputToCommandOption(
             Command command, string optionLabel, IReadOnlyCollection<string> userInput)
         {
@@ -26,8 +23,8 @@ namespace TreeBasedCli
 
             this.optionLabel = optionLabel;
 
-            this.userInput = userInput;
-            this.numberOfWordsInUserInput = this.userInput.Count;
+            this.UserInput = userInput;
+            this.UserInputWordCount = userInput.Count;
         }
 
         /// <summary>
@@ -35,7 +32,16 @@ namespace TreeBasedCli
         /// </summary>
         public Command Command { get; }
 
-        public IReadOnlyCollection<string> Values => this.userInput;
+        /// <summary>
+        /// Gets the input provided by the user to this command option as a read-only collection of strings.
+        /// The input consists of a sequence of space-separated texts.
+        /// </summary>
+        public IReadOnlyCollection<string> UserInput { get; }
+
+        /// <summary>
+        /// Gets the number of words in the user input provided to this command option.
+        /// </summary>
+        public int UserInputWordCount { get; }
 
         /// <summary>
         /// Gets the single value of this argument, throwing a <see cref="WrongCommandUsageException" />
@@ -43,9 +49,9 @@ namespace TreeBasedCli
         /// </summary>
         public string ExpectedAsSingleValue()
         {
-            if (this.numberOfWordsInUserInput != 1)
+            if (this.UserInputWordCount != 1)
             {
-                string countingWord = this.numberOfWordsInUserInput == 0 ? "none was" : $"{this.numberOfWordsInUserInput} were";
+                string countingWord = this.UserInputWordCount == 0 ? "none was" : $"{this.UserInputWordCount} were";
 
                 ThrowHelper.WrongCommandUsage(
                     this.Command,
@@ -54,7 +60,7 @@ namespace TreeBasedCli
                     $"but {countingWord} provided.");
             }
 
-            return this.userInput.First();
+            return this.UserInput.First();
         }
 
         /// <summary>
