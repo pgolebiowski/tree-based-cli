@@ -1,5 +1,5 @@
 using System;
-using TreeBasedCli.Internal;
+using TreeBasedCli.Extensions;
 
 namespace TreeBasedCli.Exceptions
 {

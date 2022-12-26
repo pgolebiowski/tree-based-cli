@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TreeBasedCli.Internal;
+using TreeBasedCli.Extensions;
 
 namespace TreeBasedCli.HelpGuideGeneration
 {

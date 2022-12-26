@@ -1,4 +1,4 @@
-namespace TreeBasedCli.Internal
+namespace TreeBasedCli.Extensions
 {
     internal class IterationInfo<T>
     {

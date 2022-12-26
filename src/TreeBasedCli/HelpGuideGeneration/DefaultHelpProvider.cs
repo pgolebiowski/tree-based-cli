@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TreeBasedCli.Exceptions;
-using TreeBasedCli.Internal;
+using TreeBasedCli.Extensions;
 
 namespace TreeBasedCli.HelpGuideGeneration
 {

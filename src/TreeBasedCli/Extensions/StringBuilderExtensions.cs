@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TreeBasedCli.Internal
+namespace TreeBasedCli.Extensions
 {
     internal static class StringBuilderExtensions
     {
