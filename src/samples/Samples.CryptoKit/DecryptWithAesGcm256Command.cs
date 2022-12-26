@@ -1,5 +1,4 @@
 using TreeBasedCli;
-using TreeBasedCli.DependencyInjection;
 
 namespace Samples.CryptoKit
 {

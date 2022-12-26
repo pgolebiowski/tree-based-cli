@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TreeBasedCli.Internal
 {
-    public static class TextFormatter
+    internal static class TextFormatter
     {
         public static IEnumerable<string> MergeColumnsLineByLine(
             IReadOnlyList<string> toBeOverriden,

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace TreeBasedCli.DependencyInjection
+namespace TreeBasedCli
 {
     public interface ICommandHandler<T> where T : IParsedCommandArguments
     {

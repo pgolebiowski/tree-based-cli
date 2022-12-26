@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using TreeBasedCli.DependencyInjection;
+using TreeBasedCli;
 
 namespace Samples.CryptoKit
 {

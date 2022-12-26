@@ -1,4 +1,4 @@
-namespace TreeBasedCli.DependencyInjection
+namespace TreeBasedCli
 {
     public static class ParseResult
     {

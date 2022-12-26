@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TreeBasedCli.DependencyInjection
+namespace TreeBasedCli
 {
     /// <summary>
     /// Same as <see cref="LeafCommand"/> but powered with dependency injection.

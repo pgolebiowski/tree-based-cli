@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using TreeBasedCli;
-using TreeBasedCli.DependencyInjection;
 
 namespace Samples.AnimalKingdom
 {
