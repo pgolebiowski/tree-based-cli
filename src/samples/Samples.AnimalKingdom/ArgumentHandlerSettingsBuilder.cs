@@ -21,6 +21,7 @@ namespace Samples.AnimalKingdom
                 })
                 .WithChildCommand(new CreateDogCommand())
                 .WithChildCommand(new CreateCatCommand())
+                .WithChildCommand(new CreateRandomAnimalCommand())
                 .Build();
     }
 }

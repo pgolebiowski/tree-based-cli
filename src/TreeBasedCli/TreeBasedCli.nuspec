@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>TreeBasedCli</id>
-    <version>2.2.8</version>
+    <version>2.2.9</version>
     <authors>Patryk Golebiowski</authors>
     <owners>Patryk Golebiowski</owners>
 
