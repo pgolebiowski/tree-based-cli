@@ -1,13 +1,16 @@
 namespace TreeBasedCli
 {
+    /// <summary>
+    /// An interface with only one method, <see cref="IDependencyInjectionService.Resolve{T}" />,
+    /// which <see cref="TreeBasedCli" /> uses to obtain instances for dependencies
+    /// declared in the parser and handler classes for leaf commands.
+    /// </summary>
     public interface IDependencyInjectionService
     {
-        TParser ResolveParser<TArguments, TParser>()
-            where TArguments : IParsedCommandArguments
-            where TParser : ICommandArgumentParser<TArguments>;
-
-        THandler ResolveHandler<TArguments, THandler>()
-            where TArguments : IParsedCommandArguments
-            where THandler : ICommandHandler<TArguments>;
+        /// <summary>
+        /// <see cref="TreeBasedCli" /> uses this method to obtain instances for dependencies
+        /// declared in the parser and handler classes for leaf commands.
+        /// </summary>
+        T Resolve<T>() where T : notnull;
     }
 }

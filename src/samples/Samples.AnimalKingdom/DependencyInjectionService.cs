@@ -33,18 +33,9 @@ namespace Samples.AnimalKingdom
             return ActivatorUtilities.CreateInstance<T>(this.serviceProvider);
         }
 
-        public TParser ResolveParser<TArguments, TParser>()
-            where TArguments : IParsedCommandArguments
-            where TParser : ICommandArgumentParser<TArguments>
+        public T Resolve<T>() where T : notnull
         {
-            return this.GetUnregisteredService<TParser>();
-        }
-
-        public THandler ResolveHandler<TArguments, THandler>()
-            where TArguments : IParsedCommandArguments
-            where THandler : ICommandHandler<TArguments>
-        {
-            return this.GetUnregisteredService<THandler>();
+            return this.GetUnregisteredService<T>();
         }
     }
 }

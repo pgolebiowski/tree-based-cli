@@ -27,8 +27,8 @@ namespace TreeBasedCli
 
         public override Task TaskToRun(CommandArguments commandArguments)
         {
-            TParser parser = this.dependencyInjectionService.ResolveParser<TArguments, TParser>();
-            THandler handler = this.dependencyInjectionService.ResolveHandler<TArguments, THandler>();
+            TParser parser = this.dependencyInjectionService.Resolve<TParser>();
+            THandler handler = this.dependencyInjectionService.Resolve<THandler>();
 
             IParseResult<TArguments> parseResult = parser.Parse(commandArguments);
 
