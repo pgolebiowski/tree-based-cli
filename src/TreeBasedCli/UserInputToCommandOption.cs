@@ -35,7 +35,7 @@ namespace TreeBasedCli
 
                 ThrowHelper.WrongCommandUsage(
                     this.Command,
-                    $"The command '{this.Command.ConsoleArgumentsRepresentingPath}' ",
+                    $"The command '{this.Command.PathAsExecutableCliPrompt}' ",
                     $"expects a single value for the option '{this.optionLabel}' ",
                     $"but {countingWord} provided.");
             }

@@ -25,7 +25,7 @@ namespace TreeBasedCli.Internal
                 exception,
                 notImplementedCondition: !thereAreChildCommands,
                 notImplementedMessage:
-                    $"The command '{command.ConsoleArgumentsRepresentingPath}' " +
+                    $"The command '{command.PathAsExecutableCliPrompt}' " +
                     "is not fully implemented. Code needs to be changed. You can either " +
                     "define child commands or turn this branch command into a leaf command.");
             
@@ -37,7 +37,7 @@ namespace TreeBasedCli.Internal
 
                 help.AppendSection(new HeaderSection("Usage:"));
                 help.AppendSection(new EmptySection(linesCount: 1));
-                help.AppendSection(new ParagraphBodySection(command.ConsoleArgumentsRepresentingPath + " <child command>"));
+                help.AppendSection(new ParagraphBodySection(command.PathAsExecutableCliPrompt + " <child command>"));
                 help.AppendSection(new EmptySection(linesCount: 3));
 
                 help.AppendSection(new HeaderSection("Child commands:"));
@@ -87,7 +87,7 @@ namespace TreeBasedCli.Internal
                 exception,
                 notImplementedCondition: command.TaskToRun == null,
                 notImplementedMessage:
-                    $"The command '{command.ConsoleArgumentsRepresentingPath}' " +
+                    $"The command '{command.PathAsExecutableCliPrompt}' " +
                     $"does not have an assigned action to invoke.");
 
             help.AppendSection(new DescriptionSection(command.Description));
@@ -97,7 +97,7 @@ namespace TreeBasedCli.Internal
 
             help.AppendSection(new HeaderSection("Usage:"));
             help.AppendSection(new EmptySection(linesCount: 1));
-            help.AppendSection(new ParagraphBodySection(command.ConsoleArgumentsRepresentingPath + (hasChildOptions ? " <options>" : "")));
+            help.AppendSection(new ParagraphBodySection(command.PathAsExecutableCliPrompt + (hasChildOptions ? " <options>" : "")));
 
             if (hasChildOptions)
             {

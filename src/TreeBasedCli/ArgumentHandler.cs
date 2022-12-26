@@ -130,7 +130,7 @@ namespace TreeBasedCli
                 {
                     throw ThrowHelper.MissingCommandImplementation(
                         leafCommand,
-                        $"The command '{leafCommand.ConsoleArgumentsRepresentingPath}' ",
+                        $"The command '{leafCommand.PathAsExecutableCliPrompt}' ",
                         $"does not have an assigned action to invoke.");
                 }
 
@@ -179,7 +179,7 @@ namespace TreeBasedCli
                     {
                         throw ThrowHelper.WrongCommandUsage(
                             branchCommand,
-                            $"The command '{branchCommand.ConsoleArgumentsRepresentingPath}' " +
+                            $"The command '{branchCommand.PathAsExecutableCliPrompt}' " +
                             $"does not have a child command '{argument}'.");
                     }
                 }

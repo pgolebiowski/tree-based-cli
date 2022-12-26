@@ -61,7 +61,7 @@ namespace TreeBasedCli
 
             throw ThrowHelper.WrongCommandUsage(
                 this.Command,
-                $"The command '{this.Command.ConsoleArgumentsRepresentingPath}' ",
+                $"The command '{this.Command.PathAsExecutableCliPrompt}' ",
                 $"requires the option '{optionLabel}' to be specified.");
         }
 
@@ -80,7 +80,7 @@ namespace TreeBasedCli
             {
                 ThrowHelper.WrongCommandUsage(
                     this.Command,
-                    $"The command '{this.Command.ConsoleArgumentsRepresentingPath}' ",
+                    $"The command '{this.Command.PathAsExecutableCliPrompt}' ",
                     "has not been designed to be invoked with arguments.");
             }
 
@@ -91,7 +91,7 @@ namespace TreeBasedCli
             {
                 ThrowHelper.WrongCommandUsage(
                     this.Command,
-                    $"The command '{this.Command.ConsoleArgumentsRepresentingPath}' ",
+                    $"The command '{this.Command.PathAsExecutableCliPrompt}' ",
                     $"does not have an option '{currentOption}'.");
             }
 

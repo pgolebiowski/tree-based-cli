@@ -30,6 +30,13 @@ namespace TreeBasedCli
         internal BranchCommand? Parent { get; set; }
         internal CommandTree? Tree { get; set; }
 
+        /// <summary>
+        /// Gets the command in the form of a command-line prompt that can be executed
+        /// to invoke this particular command. It does not contain command options.
+        /// </summary>
+        public string PathAsExecutableCliPrompt
+            => this.Path.Select(x => x.LabelVisibleForUserInConsole).Join(" ");
+
         internal string LabelVisibleForUserInConsole
         {
             get
@@ -59,9 +66,6 @@ namespace TreeBasedCli
                 return result;
             }
         }
-
-        internal string ConsoleArgumentsRepresentingPath
-            => this.Path.Select(x => x.LabelVisibleForUserInConsole).Join(" ");
 
         internal string ConsoleArgumentsRepresentingHelpPath
         {
