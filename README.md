@@ -94,6 +94,8 @@ Building on top of the previous example, let's say that you would like to levera
 
 We will use `LeafCommand<THandler>`. It represents a leaf command that comes with no options, and thus also no arguments or parser. However, it comes with a handler that leverages dependency injection. Derive from this class for the simplest kinds of leaf commands, which require no parameters, but the task logic does have a dependency on other existing objects.
 
+An instance of this command needs to be a part of a properly configured `CommandTree` for dependency injection to work — we will demonstrate this later in the section [on dependency injection](#44-leveraging-dependency-injection-in-your-command-tree-).
+
 ```csharp
 public class CreateRandomAnimalCommand :
     LeafCommand<CreateRandomAnimalCommand.Handler>
@@ -103,8 +105,7 @@ public class CreateRandomAnimalCommand :
         description: new[]
         {
             "Prints out a random animal."
-        },
-        DependencyInjectionService.Instance)
+        })
     { }
 
     public class Handler : ILeafCommandHandler
@@ -146,6 +147,8 @@ We will use `LeafCommand<TArguments, TParser, THandler>`. It represents a leaf c
 
 To use `LeafCommand<TArguments, TParser, THandler>`, you will need to derive from it and provide implementations for `TArguments`, `TParser`, and `THandler` that suit your specific needs. This allows you to tailor your leaf commands to the unique requirements of your CLI and create a highly customized and user-friendly experience for your users.
 
+An instance of this command needs to be a part of a properly configured `CommandTree` for dependency injection to work — we will demonstrate this later in the section [on dependency injection](#44-leveraging-dependency-injection-in-your-command-tree-).
+
 ```csharp
 public class CreateCatCommand :
     LeafCommand<
@@ -170,8 +173,7 @@ public class CreateCatCommand :
                     "Required. The name of the cat to print."
                 }
             ),
-        },
-        DependencyInjectionService.Instance)
+        })
     { }
 
     public record Arguments(string CatName) : IParsedCommandArguments;
@@ -282,6 +284,24 @@ internal class Program
         /* your command tree */
     }
 }
+```
+
+### 4.4. Leveraging dependency injection in your command tree 🔌
+
+Dependency injection is a key feature of TreeBasedCli that simplifies the management of dependencies in commands, making it easy to test and maintain code, even for large and complex command-line interfaces. It allows developers to decouple the implementation of their commands from their dependencies, making it easy to build robust and maintainable command-line interfaces.
+
+To use dependency injection in your command tree, you will need to implement the `IDependencyInjectionService` interface provided by TreeBasedCli. This interface has a single method, `Resolve<T>()`, which the framework uses internally to obtain instances of dependencies declared in the parser and handler classes for leaf commands. Once you write a class that implements it, provide an instance of that class when creating a new `CommandTree` object. Here is an example, note the `dependencyInjectionService` parameter:
+
+```csharp
+public static ArgumentHandlerSettings Build()
+    => new ArgumentHandlerSettings
+    (
+        name: "Animal Kingdom",
+        version: "1.0",
+        commandTree: new CommandTree(
+            root: BuildCommandTree(),
+            dependencyInjectionService: DependencyInjectionService.Instance)
+    );
 ```
 
 ## 5. Do you have more code examples? 👩‍💻

@@ -11,21 +11,17 @@ namespace TreeBasedCli
     public class LeafCommand<THandler> : LeafCommand
         where THandler : ILeafCommandHandler
     {
-        private readonly IDependencyInjectionService dependencyInjectionService;
-
         /// <inheritdoc cref="TreeBasedCli.LeafCommand{THandler}" />
         public LeafCommand(
             string label,
-            string[] description,
-            IDependencyInjectionService dependencyInjectionService)
+            string[] description)
                 : base(label, description, new CommandOption[] { })
         {
-            this.dependencyInjectionService = dependencyInjectionService;
         }
 
         public override Task TaskToRun(CommandArguments commandArguments)
         {
-            THandler handler = this.dependencyInjectionService.Resolve<THandler>();
+            THandler handler = this.DependencyInjectionService.Resolve<THandler>();
             return handler.HandleAsync(this);
         }
     }

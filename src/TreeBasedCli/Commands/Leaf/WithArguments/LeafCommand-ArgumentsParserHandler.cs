@@ -27,22 +27,18 @@ namespace TreeBasedCli
         where TParser : ICommandArgumentParser<TArguments>
         where THandler : ICommandHandler<TArguments>
     {
-        private readonly IDependencyInjectionService dependencyInjectionService;
-
         public LeafCommand(
             string label,
             string[] description,
-            IReadOnlyList<CommandOption> options,
-            IDependencyInjectionService dependencyInjectionService)
+            IReadOnlyList<CommandOption> options)
                 : base(label, description, options)
         {
-            this.dependencyInjectionService = dependencyInjectionService;
         }
 
         public override Task TaskToRun(CommandArguments commandArguments)
         {
-            TParser parser = this.dependencyInjectionService.Resolve<TParser>();
-            THandler handler = this.dependencyInjectionService.Resolve<THandler>();
+            TParser parser = this.DependencyInjectionService.Resolve<TParser>();
+            THandler handler = this.DependencyInjectionService.Resolve<THandler>();
 
             IParseResult<TArguments> parseResult = parser.Parse(commandArguments);
 

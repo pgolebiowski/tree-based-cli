@@ -12,8 +12,7 @@ namespace Samples.AnimalKingdom
             description: new[]
             {
                 "Prints out a random animal."
-            },
-            DependencyInjectionService.Instance)
+            })
         { }
 
         public class Handler : ILeafCommandHandler

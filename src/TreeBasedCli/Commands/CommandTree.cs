@@ -7,13 +7,18 @@ namespace TreeBasedCli
     /// </summary>
     public class CommandTree
     {
-        public CommandTree(Command root)
+        public CommandTree(
+            Command root,
+            IDependencyInjectionService? dependencyInjectionService = null)
         {
             this.Root = root;
+            this.DependencyInjectionService = dependencyInjectionService;
             this.SetParentReferences(this.Root, parentNode: null);
         }
 
         public Command Root { get; }
+
+        internal IDependencyInjectionService? DependencyInjectionService { get; }
 
         private void SetParentReferences(
             Command node,
@@ -25,6 +30,7 @@ namespace TreeBasedCli
             }
 
             node.Parent = parentNode;
+            node.Tree = this;
 
             if (node is BranchCommand branchNode)
             {

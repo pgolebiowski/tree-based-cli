@@ -26,8 +26,7 @@ namespace Samples.AnimalKingdom
                         "Required. The name of the dog to print."
                     }
                 ),
-            },
-            DependencyInjectionService.Instance)
+            })
         { }
 
         public record Arguments(string DogName) : IParsedCommandArguments;

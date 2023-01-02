@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TreeBasedCli.Extensions;
@@ -47,6 +48,42 @@ namespace TreeBasedCli
                     current = current.Parent;
                 }
                 return current;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="CommandTree" /> that this command belongs to.
+        /// </summary>
+        internal CommandTree? Tree { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="IDependencyInjectionService" /> provided to the
+        /// <see cref="CommandTree" /> that this command belongs to. This getter will throw
+        /// an exception if: a) this command does not belong to a command tree; or
+        /// b) the command tree this command belongs to does not have a reference
+        /// to a dependency injection service.
+        /// </summary>
+        internal IDependencyInjectionService DependencyInjectionService
+        {
+            get
+            {
+                if (this.Tree is null)
+                {
+                    throw new InvalidOperationException(
+                        "Cannot find the dependency injection service, because this command " +
+                        "does not belong to a command tree.");
+                }
+
+                CommandTree tree = this.Tree;
+
+                if (tree.DependencyInjectionService is null)
+                {
+                    throw new InvalidOperationException(
+                        "Cannot find the dependency injection service, because the corresponding " +
+                        "command tree was created without one.");
+                }
+
+                return tree.DependencyInjectionService;
             }
         }
 

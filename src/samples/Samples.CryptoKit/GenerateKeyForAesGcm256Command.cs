@@ -14,8 +14,7 @@ namespace Samples.CryptoKit
             {
                 "Generate a 256-bit cryptographic key and print it in base64."
             },
-            options: new CommandOption[] { },
-            DependencyInjectionService.Instance)
+            options: new CommandOption[] { })
         { }
 
         public record Arguments() : IParsedCommandArguments;

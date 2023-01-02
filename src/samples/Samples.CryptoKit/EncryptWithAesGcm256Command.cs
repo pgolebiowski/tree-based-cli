@@ -33,8 +33,7 @@ namespace Samples.CryptoKit
                         "The path to the output file where the encrypted data is to be written."
                     }
                 ),
-            },
-            DependencyInjectionService.Instance)
+            })
         { }
 
         public record Arguments(string InputPath, string OutputPath) : IParsedCommandArguments;
