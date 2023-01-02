@@ -25,7 +25,6 @@ namespace TreeBasedCli
             }
 
             node.Parent = parentNode;
-            node.Tree = this;
 
             if (node is BranchCommand branchNode)
             {

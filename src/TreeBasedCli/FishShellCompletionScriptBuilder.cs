@@ -36,8 +36,15 @@ namespace TreeBasedCli
             this.lines.Add("");
         }
 
-        public void AddCommandTree(Command rootCommand)
+        /// <summary>
+        /// Extends the fish completion script, covering all commands and options in the tree
+        /// that the specified command belongs to. You only need to execute this once,
+        /// on any command that belongs to that command tree.
+        /// </summary>
+        public void AddCommandTree(Command command)
         {
+            Command rootCommand = command.Root;
+
             if (rootCommand is BranchCommand branchCommand)
             {
                 var stack = new Stack<Command>();

@@ -27,12 +27,28 @@ namespace TreeBasedCli
         /// </summary>
         public string[] Description { get; }
 
+        /// <summary>
+        /// Gets or sets the parent <see cref="BranchCommand" /> of this command.
+        /// The value is <see langword="null"/> at the root of the command tree.
+        /// </summary>
         internal BranchCommand? Parent { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="CommandTree" /> that this command belongs to.
+        /// Gets the root of this command tree. In particular, it's possible that this will
+        /// return a reference to this command, if it is the root of the command tree.
         /// </summary>
-        public CommandTree? Tree { get; set; }
+        internal Command Root
+        {
+            get
+            {
+                Command current = this;
+                while (current.Parent is not null)
+                {
+                    current = current.Parent;
+                }
+                return current;
+            }
+        }
 
         /// <summary>
         /// Gets the command in the form of a command-line prompt that can be executed
@@ -75,7 +91,7 @@ namespace TreeBasedCli
         {
             get
             {
-                string? rootLabel = this.Tree?.Root.LabelVisibleForUserInConsole;
+                string rootLabel = this.Root.LabelVisibleForUserInConsole;
                 IEnumerable<Command> remainingPath = this.Path.Skip(1);
 
                 if (remainingPath.IsEmpty())
