@@ -4,10 +4,15 @@ using System.Linq;
 
 namespace TreeBasedCli
 {
+    /// <summary>
+    /// A class that builds a fish shell completion script that covers
+    /// all commands and options in a command tree.
+    /// </summary>
     public class FishShellCompletionScriptBuilder
     {
         private readonly List<string> lines;
 
+        /// <inheritdoc cref="FishShellCompletionScriptBuilder" />
         public FishShellCompletionScriptBuilder()
         {
             this.lines = new List<string>();
@@ -123,7 +128,11 @@ namespace TreeBasedCli
             }
         }
 
-        public string Build()
+        /// <summary>
+        /// Generates the fish shell completion script based on the commands
+        /// and options in the command trees provided so far.
+        /// </summary>
+        public string GenerateScript()
         {
             return string.Join(Environment.NewLine, this.lines);
         }
