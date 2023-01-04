@@ -3,12 +3,21 @@ using System;
 namespace TreeBasedCli.Exceptions
 {
     /// <summary>
-    /// Represents an exception that can be constructed with a message only.
-    /// This message is meant to be presented to the user directly, without
-    /// other information (e.g. the stack trace).
+    /// <para>
+    /// Represents an exception that is used to communicate a message to the user
+    /// directly. Unlike <see cref="WrongCommandUsageException"/>, this exception
+    /// does not trigger the display of the help guide for the command.
+    /// </para>
+    /// 
+    /// <para>
+    /// Use this exception when you assume that the user knows how to invoke the command
+    /// and which options to choose and does not need to be reminded of that.
+    /// </para>
     /// </summary>
     public class MessageOnlyException : Exception
     {
+        /// <inheritdoc cref="MessageOnlyException" />
+        /// <param name="message">The message to be displayed to the user.</param>
         public MessageOnlyException(string message) : base(message)
         {
         }
