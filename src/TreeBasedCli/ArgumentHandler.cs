@@ -7,6 +7,10 @@ using TreeBasedCli.Extensions;
 
 namespace TreeBasedCli
 {
+    /// <summary>
+    /// The main class responsible for parsing and executing commands in a command-line interface.
+    /// It acts as the entry point to the program, which takes raw input arguments provided by the user.
+    /// </summary>
     public class ArgumentHandler
     {
         private readonly ArgumentHandlerSettings settings;
@@ -18,6 +22,13 @@ namespace TreeBasedCli
             "-h"
         };
 
+        /// <summary>
+        /// Creates a new instance of <see cref="ArgumentHandler"/>.
+        /// </summary>
+        /// <param name="settings">
+        /// The settings for the command-line interface, including the name,
+        /// version, command tree, and help provider.
+        /// </param>
         public ArgumentHandler(ArgumentHandlerSettings settings)
         {
             this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -25,6 +36,10 @@ namespace TreeBasedCli
             this.Validate();
         }
 
+        /// <summary>
+        /// Validates the settings for the command-line interface, including
+        /// the root command in the command tree and the presence of any explicit help options in commands.
+        /// </summary>
         private void Validate()
         {
             if (this.settings.CommandTree == null)
@@ -65,6 +80,12 @@ namespace TreeBasedCli
             }
         }
 
+        /// <summary>
+        /// Handles the input arguments for the command-line interface, either by running
+        /// the requested command or displaying help information.
+        /// </summary>
+        /// <param name="arguments">The input arguments for the command-line interface.</param>
+        /// <returns>A task representing the asynchronous execution of the command or help display.</returns>
         public async Task HandleAsync(IReadOnlyCollection<string> arguments)
         {
             if (arguments == null)
