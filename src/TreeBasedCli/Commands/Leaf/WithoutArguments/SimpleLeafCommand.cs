@@ -17,6 +17,10 @@ namespace TreeBasedCli
                 : base(label, description, new CommandOption[] { })
         { }
 
+        /// <summary>
+        /// Abstract method representing the task to be run when this leaf command is executed.
+        /// This method does not accept any arguments, as this leaf command has no options or dependencies.
+        /// </summary>
         public abstract Task TaskToRun();
 
         public override Task TaskToRun(CommandArguments commandArguments)

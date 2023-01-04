@@ -6,10 +6,21 @@ using TreeBasedCli.Extensions;
 namespace TreeBasedCli
 {
     /// <summary>
-    /// Represents a command that can be executed in a command-line interface.
+    /// Represents a base class for command objects. This class serves as the base for all
+    /// leaf and branch commands in the command tree, and includes properties that
+    /// are common to all command types.
     /// </summary>
     public class Command
     {
+        /// <inheritdoc cref="Command" />
+        /// <param name="label">
+        /// The label of the command, which is used to identify it in the command-line interface.
+        /// </param>
+        /// <param name="description">
+        /// The description of the command, which explains what the command does.
+        /// This property is an array, because each element is going to be rendered
+        /// as a separate paragraph in the help panel.
+        /// </param>
         public Command(string label, string[] description)
         {
             this.Label = label;
