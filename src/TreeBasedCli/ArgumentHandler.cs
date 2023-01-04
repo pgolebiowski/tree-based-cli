@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TreeBasedCli.Exceptions;
@@ -95,7 +96,7 @@ namespace TreeBasedCli
 
             try
             {
-                if (ExplicitlyRequestedHelp(arguments, out IReadOnlyCollection<string> helpArguments))
+                if (ExplicitlyRequestedHelp(arguments, out IReadOnlyCollection<string>? helpArguments))
                 {
                     this.PrintHelp(helpArguments);
                 }
@@ -112,7 +113,7 @@ namespace TreeBasedCli
 
         private static bool ExplicitlyRequestedHelp(
             IReadOnlyCollection<string> arguments,
-            out IReadOnlyCollection<string> remainingArguments)
+            [NotNullWhen(true)] out IReadOnlyCollection<string>? remainingArguments)
         {
             if (arguments.IsNullOrEmpty())
             {
@@ -166,7 +167,7 @@ namespace TreeBasedCli
 
             if (arguments.IsNullOrEmpty())
             {
-                notConsumedArguments = default;
+                notConsumedArguments = Array.Empty<string>();
                 return;
             }
 
@@ -205,10 +206,10 @@ namespace TreeBasedCli
             // if this code is reached, all the arguments are valid, but they lead
             // to a branch command
 
-            notConsumedArguments = default;
+            notConsumedArguments = Array.Empty<string>();
         }
 
-        private void PrintHelp(Command command, WrongCommandUsageException exception = null)
+        private void PrintHelp(Command command, WrongCommandUsageException? exception = null)
         {
             if (command == null)
             {

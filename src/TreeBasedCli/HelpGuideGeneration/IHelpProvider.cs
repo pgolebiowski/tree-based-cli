@@ -10,11 +10,11 @@ namespace TreeBasedCli.HelpGuideGeneration
         /// <summary>
         /// Generates help documentation for a branch command in the command tree.
         /// </summary>
-        string ProvideHelp(BranchCommand command, WrongCommandUsageException exception);
+        string ProvideHelp(BranchCommand command, WrongCommandUsageException? exception);
 
         /// <summary>
         /// Generates help documentation for a leaf command in the command tree.
         /// </summary>
-        string ProvideHelp(LeafCommand command, WrongCommandUsageException exception);
+        string ProvideHelp(LeafCommand command, WrongCommandUsageException? exception);
     }
 }

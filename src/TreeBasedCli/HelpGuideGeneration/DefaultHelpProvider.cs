@@ -13,7 +13,7 @@ namespace TreeBasedCli.HelpGuideGeneration
         public DefaultHelpProvider(ArgumentHandlerSettings settings)
             => this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
-        public string ProvideHelp(BranchCommand command, WrongCommandUsageException exception)
+        public string ProvideHelp(BranchCommand command, WrongCommandUsageException? exception)
         {
             int lineLengthLimit = Math.Min(Console.WindowWidth - 8, 120);
             var help = new StringBuilderWithLimitedLineLength(lineLengthLimit);
@@ -23,7 +23,8 @@ namespace TreeBasedCli.HelpGuideGeneration
 
             bool thereAreChildCommands = !command.ChildCommands.IsNullOrEmpty();
 
-            AppendErrorSection(help,
+            AppendErrorSection(
+                help,
                 exception,
                 notImplementedCondition: !thereAreChildCommands,
                 notImplementedMessage:
@@ -77,7 +78,7 @@ namespace TreeBasedCli.HelpGuideGeneration
             return help.ToString();
         }
 
-        public string ProvideHelp(LeafCommand command, WrongCommandUsageException exception)
+        public string ProvideHelp(LeafCommand command, WrongCommandUsageException? exception)
         {
             int lineLengthLimit = Math.Min(Console.WindowWidth - 8, 120);
             var help = new StringBuilderWithLimitedLineLength(lineLengthLimit);
@@ -134,19 +135,18 @@ namespace TreeBasedCli.HelpGuideGeneration
 
         private static void AppendErrorSection(
             StringBuilderWithLimitedLineLength help,
-            WrongCommandUsageException exception,
+            WrongCommandUsageException? exception,
             bool notImplementedCondition,
             string? notImplementedMessage)
         {
-            bool thereWasException = exception != null;
             var errors = new List<string>();
 
-            if (thereWasException)
+            if (exception is not null)
             {
                 errors.Add(exception.Message);
             }
 
-            if (notImplementedCondition)
+            if (notImplementedCondition && (notImplementedMessage is not null))
             {
                 errors.Add(notImplementedMessage);
             }
