@@ -23,6 +23,10 @@ namespace TreeBasedCli
         /// </summary>
         public abstract Task TaskToRun();
 
+        /// <summary>
+        /// Represents the task that will be run when this leaf command is executed. This method executes
+        /// the logic of the parameterless <see cref="SimpleLeafCommand.TaskToRun()"/>.
+        /// </summary>
         public override Task TaskToRun(CommandArguments commandArguments)
         {
             return this.TaskToRun();
