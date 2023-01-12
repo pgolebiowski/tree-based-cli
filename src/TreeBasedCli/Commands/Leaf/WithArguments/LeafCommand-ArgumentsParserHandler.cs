@@ -22,7 +22,7 @@ namespace TreeBasedCli
     /// to tailor your leaf commands to the unique requirements of your CLI and create a highly customized
     /// and user-friendly experience for your users.
     /// </summary>
-    public class LeafCommand<TArguments, TParser, THandler> : LeafCommand, ICommand<TArguments, TParser, THandler>
+    public class LeafCommand<TArguments, TParser, THandler> : LeafCommand
         where TArguments : IParsedCommandArguments
         where TParser : ICommandArgumentParser<TArguments>
         where THandler : ILeafCommandHandler<TArguments>
