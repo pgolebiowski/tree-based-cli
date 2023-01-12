@@ -45,7 +45,7 @@ namespace Samples.AnimalKingdom
             }
         }
 
-        public class Handler : ICommandHandler<Arguments>
+        public class Handler : ILeafCommandHandler<Arguments>
         {
             private readonly IUserInterface userInterface;
 

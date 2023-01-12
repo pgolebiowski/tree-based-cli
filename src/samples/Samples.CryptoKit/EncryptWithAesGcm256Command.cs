@@ -54,7 +54,7 @@ namespace Samples.CryptoKit
             }
         }
 
-        public class Handler : ICommandHandler<Arguments>
+        public class Handler : ILeafCommandHandler<Arguments>
         {
             public Task HandleAsync(Arguments arguments, LeafCommand _)
             {

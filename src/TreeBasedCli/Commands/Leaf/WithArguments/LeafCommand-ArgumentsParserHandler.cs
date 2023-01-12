@@ -25,7 +25,7 @@ namespace TreeBasedCli
     public class LeafCommand<TArguments, TParser, THandler> : LeafCommand, ICommand<TArguments, TParser, THandler>
         where TArguments : IParsedCommandArguments
         where TParser : ICommandArgumentParser<TArguments>
-        where THandler : ICommandHandler<TArguments>
+        where THandler : ILeafCommandHandler<TArguments>
     {
         public LeafCommand(
             string label,
