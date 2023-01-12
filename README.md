@@ -5,7 +5,7 @@
 
 # TreeBasedCli
 
-<img src="image.jpg" alt="mascot ^_^" width=30% height=30%>
+<img src="mascot.jpg" alt="mascot ^_^" width=30% height=30%>
 
 ## 1. Project mission 🤗
 

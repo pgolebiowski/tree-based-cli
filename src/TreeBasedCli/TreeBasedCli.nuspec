@@ -2,9 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>TreeBasedCli</id>
-    <version>3.2.4</version>
+    <version>3.2.5</version>
     <authors>Patryk Golebiowski</authors>
     <owners>Patryk Golebiowski</owners>
+
+    <icon>images/mascot.jpg</icon>
 
     <projectUrl>https://github.com/pgolebiowski/tree-based-cli</projectUrl>
     <license type="expression">Apache-2.0</license>
@@ -27,5 +29,7 @@
   <files>
     <file src="bin/Release/net7.0/TreeBasedCli.dll" target="lib/net7.0" />
     <file src="bin/Release/net7.0/TreeBasedCli.xml" target="lib/net7.0" />
+
+    <file src="../../mascot.jpg" target="images/" />
   </files>
 </package>
