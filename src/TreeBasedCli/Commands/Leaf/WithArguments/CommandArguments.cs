@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using TreeBasedCli.Exceptions;
 using TreeBasedCli.Extensions;
 
 namespace TreeBasedCli
 {
+    /// <inheritdoc cref="ICommandArguments" />
     public class CommandArguments : ICommandArguments
     {
         private Dictionary<string, IReadOnlyCollection<string>> argumentsAsDictionary;
 
+        /// <inheritdoc cref="ICommandArguments" />
         public CommandArguments(LeafCommand command, IReadOnlyCollection<string> arguments)
         {
             this.Command = command ?? throw new ArgumentNullException(nameof(command));
@@ -19,14 +20,19 @@ namespace TreeBasedCli
             this.argumentsAsDictionary = this.ProcessArgumentsAsDictionary();
         }
 
+        /// <inheritdoc cref="ICommandArguments.Arguments" />
         public IReadOnlyCollection<string> Arguments { get; }
+
+        /// <inheritdoc cref="ICommandArguments.Command" />
         public LeafCommand Command { get; }
 
+        /// <inheritdoc cref="ICommandArguments.ContainsArgument(string)" />
         public bool ContainsArgument(string optionLabel)
         {
             return this.argumentsAsDictionary.ContainsKey(optionLabel);
         }
 
+        /// <inheritdoc cref="ICommandArguments.TryGetArgument(string, out IUserInputToCommandOption?)" />
         public bool TryGetArgument(string optionLabel, [NotNullWhen(true)] out IUserInputToCommandOption? result)
         {
             if (this.argumentsAsDictionary.TryGetValue(optionLabel, out IReadOnlyCollection<string>? found))
@@ -41,6 +47,7 @@ namespace TreeBasedCli
             }
         }
 
+        /// <inheritdoc cref="ICommandArguments.GetArgumentOrNull(string)" />
         public IUserInputToCommandOption? GetArgumentOrNull(string optionLabel)
         {
             if (this.TryGetArgument(optionLabel, out IUserInputToCommandOption? result))
@@ -51,6 +58,7 @@ namespace TreeBasedCli
             return null;
         }
 
+        /// <inheritdoc cref="ICommandArguments.GetArgument(string)" />
         public IUserInputToCommandOption GetArgument(string optionLabel)
         {
             IUserInputToCommandOption? found = this.GetArgumentOrNull(optionLabel);

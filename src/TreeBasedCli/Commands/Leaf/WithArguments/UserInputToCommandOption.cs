@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TreeBasedCli.Exceptions;
-using TreeBasedCli.Extensions;
 
 namespace TreeBasedCli
 {
+    /// <inheritdoc cref="IUserInputToCommandOption" />
     public partial class UserInputToCommandOption : IUserInputToCommandOption
     {
         private readonly string optionLabel;
 
+        /// <inheritdoc cref="IUserInputToCommandOption" />
         public UserInputToCommandOption(
             Command command, string optionLabel, IReadOnlyCollection<string> userInput)
         {
@@ -22,12 +23,16 @@ namespace TreeBasedCli
             this.UserInputWordCount = userInput.Count;
         }
 
+        /// <inheritdoc cref="IUserInputToCommandOption.Command" />
         public Command Command { get; }
 
+        /// <inheritdoc cref="IUserInputToCommandOption.UserInput" />
         public IReadOnlyCollection<string> UserInput { get; }
 
+        /// <inheritdoc cref="IUserInputToCommandOption.UserInputWordCount" />
         public int UserInputWordCount { get; }
 
+        /// <inheritdoc cref="IUserInputToCommandOption.ExpectedAsSingleValue" />
         public string ExpectedAsSingleValue()
         {
             if (this.UserInputWordCount != 1)
@@ -44,6 +49,7 @@ namespace TreeBasedCli
             return this.UserInput.First();
         }
 
+        /// <inheritdoc cref="IUserInputToCommandOption.ExpectedAsSinglePathToExistingFile" />
         public string ExpectedAsSinglePathToExistingFile()
         {
             string path = this.ExpectedAsSingleValue();
@@ -57,6 +63,7 @@ namespace TreeBasedCli
             return path;
         }
 
+        /// <inheritdoc cref="IUserInputToCommandOption.ExpectedAsSinglePathToExistingDirectory" />
         public string ExpectedAsSinglePathToExistingDirectory()
         {
             string path = this.ExpectedAsSingleValue();
@@ -70,6 +77,7 @@ namespace TreeBasedCli
             return path;
         }
 
+        /// <inheritdoc cref="IUserInputToCommandOption.ExpectedAsSingleInteger" />
         public int ExpectedAsSingleInteger()
         {
             string value = this.ExpectedAsSingleValue();
@@ -82,6 +90,7 @@ namespace TreeBasedCli
             throw new MessageOnlyException($"Could not parse '{value}' as an integer.");
         }
 
+        /// <inheritdoc cref="IUserInputToCommandOption.ExpectedAsEnumValue{TEnum}" />
         public TEnum ExpectedAsEnumValue<TEnum>() where TEnum : struct, Enum
         {
             string value = this.ExpectedAsSingleValue();

@@ -27,6 +27,7 @@ namespace TreeBasedCli
         where TParser : ICommandArgumentParser<TArguments>
         where THandler : ILeafCommandHandler<TArguments>
     {
+        /// <inheritdoc cref="TreeBasedCli.LeafCommand{TArguments, TParser, THandler}" />
         public LeafCommand(
             string label,
             string[] description,
@@ -35,6 +36,15 @@ namespace TreeBasedCli
         {
         }
 
+        /// <summary>
+        /// Represents the task that will be run when this leaf command is executed.
+        /// It will resolve the <typeparamref name="TParser"/> and <typeparamref name="THandler"/> objects 
+        /// using the dependency injection service of the command tree it belongs to.
+        /// It will then parse the <paramref name="commandArguments"/> and, if the parsing is successful,
+        /// feed it into the <typeparamref name="THandler"/> object, which implements
+        /// the <see cref="TreeBasedCli.ILeafCommandHandler{T}"/> interface, and has an asynchronous
+        /// method <see cref="TreeBasedCli.ILeafCommandHandler{T}.HandleAsync(T, LeafCommand)"/>.
+        /// </summary>
         public override Task TaskToRun(CommandArguments commandArguments)
         {
             TParser parser = this.DependencyInjectionService.Resolve<TParser>();
