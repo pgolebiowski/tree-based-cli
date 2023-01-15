@@ -20,6 +20,9 @@ It is a powerful choice for building CLIs of any size or complexity, designed to
    * [Branch commands 🌳](#42-branch-commands-)
    * [Wrapping it all up! 🎁](#43-wrapping-it-all-up-)
 
+</br>
+<img src="demo.gif" alt="demo" width=75% height=75%>
+
 ## 2. Key benefits 🌟
 
 TreeBasedCli is a powerful and user-friendly choice, designed to provide both developers and users with a superb usage experience. Here are some of the key benefits of using TreeBasedCli:

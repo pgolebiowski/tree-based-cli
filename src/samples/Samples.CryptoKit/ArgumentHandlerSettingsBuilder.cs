@@ -24,6 +24,7 @@ namespace Samples.CryptoKit
                 .WithChildCommand(BuildCheckAlgorithmCommand())
                 .WithChildCommand(BuildCryptographicAlgorithmsCommand())
                 .WithChildCommand(BuildExperimentalCommand())
+                .WithChildCommand(new GenerateFishShellCompletionScriptCommand())
                 .Build();
 
         private static Command BuildCheckAlgorithmCommand()
