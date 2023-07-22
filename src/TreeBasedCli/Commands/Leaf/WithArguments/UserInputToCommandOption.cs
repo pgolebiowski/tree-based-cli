@@ -77,6 +77,20 @@ namespace TreeBasedCli
             return path;
         }
 
+        /// <inheritdoc cref="IUserInputToCommandOption.ExpectedAsSinglePathToExistingDirectoryOrFile" />
+        public string ExpectedAsSinglePathToExistingDirectoryOrFile()
+        {
+            string path = this.ExpectedAsSingleValue();
+
+            if (!File.Exists(path) && !Directory.Exists(path))
+            {
+                ThrowHelper.MessageOnlyException(
+                    $"The file or directory '{path}' does not exist.");
+            }
+
+            return path;
+        }
+
         /// <inheritdoc cref="IUserInputToCommandOption.ExpectedAsSingleInteger" />
         public int ExpectedAsSingleInteger()
         {

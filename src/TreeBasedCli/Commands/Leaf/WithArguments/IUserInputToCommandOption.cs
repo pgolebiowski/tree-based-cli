@@ -49,6 +49,13 @@ namespace TreeBasedCli
         string ExpectedAsSinglePathToExistingDirectory();
 
         /// <summary>
+        /// Gets the single value of this argument, interpreted as a path to an existing file or directory.
+        /// This method throws a <see cref="WrongCommandUsageException" /> if the number of values is not equal to 1.
+        /// It throws a <see cref="MessageOnlyException" /> if no file or directory exists at the specified path.
+        /// </summary>
+        string ExpectedAsSinglePathToExistingDirectoryOrFile();
+
+        /// <summary>
         /// Gets the single value of this argument, interpreted as an integer.
         /// This method throws a <see cref="WrongCommandUsageException" /> if the number of values is not equal to 1.
         /// It throws a <see cref="MessageOnlyException" /> if the value cannot be parsed as an integer.
