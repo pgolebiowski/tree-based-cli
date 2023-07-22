@@ -109,5 +109,31 @@ namespace TreeBasedCli
                     $"Available values are: [ {availableValues} ].");
             }
         }
+
+        /// <inheritdoc cref="IUserInputToCommandOption.ExpectedAsEnumValues{TEnum}" />
+        public IReadOnlySet<TEnum> ExpectedAsEnumValues<TEnum>() where TEnum : struct, Enum
+        {
+            var parsedEnums = new HashSet<TEnum>();
+
+            foreach (string value in this.UserInput)
+            {
+                try
+                {
+                    TEnum parsedEnum = Enum.Parse<TEnum>(value);
+                    parsedEnums.Add(parsedEnum);
+                }
+                catch
+                {
+                    string availableValues = string.Join(", ", Enum.GetValues<TEnum>());
+
+                    throw new WrongCommandUsageException(
+                        this.Command,
+                        $"There is no enum value for {typeof(TEnum)} that maps to '{value}'. " +
+                        $"Available values are: [ {availableValues} ].");
+                }
+            }
+
+            return parsedEnums;
+        }
     }
 }

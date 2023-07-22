@@ -58,8 +58,14 @@ namespace TreeBasedCli
         /// <summary>
         /// Gets the single value of this argument, interpreted as a value of the specified enumeration type.
         /// This method throws a <see cref="WrongCommandUsageException" /> if the number of values is not equal to 1.
-        /// It throws a <see cref="MessageOnlyException" /> if the value cannot be mapped to a value of the specified enumeration type.
+        /// It throws a <see cref="WrongCommandUsageException" /> if the value cannot be mapped to a value of the specified enumeration type.
         /// </summary>
         TEnum ExpectedAsEnumValue<TEnum>() where TEnum : struct, Enum;
+
+        /// <summary>
+        /// Gets the values of this argument, interpreted as values of the specified enumeration type.
+        /// It throws a <see cref="WrongCommandUsageException" /> if any of the values cannot be mapped to a value of the specified enumeration type.
+        /// </summary>
+        IReadOnlySet<TEnum> ExpectedAsEnumValues<TEnum>() where TEnum : struct, Enum;
     }
 }

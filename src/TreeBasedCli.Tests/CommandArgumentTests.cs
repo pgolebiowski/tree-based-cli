@@ -1,6 +1,6 @@
 using Xunit;
+using Shouldly;
 using System.Threading.Tasks;
-using System;
 
 namespace TreeBasedCli.Tests
 {
@@ -39,12 +39,11 @@ namespace TreeBasedCli.Tests
         }
 
         [Fact]
-        public async Task should_parse_correct_enum_value()
+        public async Task GivenEnumArgument_CorrectValueIsAssignedToCommandHandler()
         {
             // given
             var resultHolder = new FutureValueHolder<SampleEnum>();
             var command = new SampleCommand(resultHolder);
-
             var commandTree = new CommandTree(root: command);
 
             var handler = new ArgumentHandler(
@@ -54,8 +53,7 @@ namespace TreeBasedCli.Tests
             await handler.HandleAsync(new[] { "--enum-value", "Two" });
 
             // then
-            Console.WriteLine($"received value: {resultHolder.Value}");
-            Assert.Equal(SampleEnum.Two, resultHolder.Value);
+            resultHolder.Value.ShouldBe(SampleEnum.Two);
         }
     }
 }
