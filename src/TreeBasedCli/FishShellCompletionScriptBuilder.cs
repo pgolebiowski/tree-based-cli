@@ -92,7 +92,7 @@ namespace TreeBasedCli
         private void AddSubcommand(Command rootCommand, IReadOnlyCollection<Command> path, Command childCommand)
         {
             string usingCommandArgument = string.Join(" ", path.Select(x => x.Label));
-            string description = string.Join(" ", childCommand.Description).Replace("\"", "\\\"");
+            string description = string.Join(" ", childCommand.Description).Replace("'", "\\'");
 
             this.lines.Add(
                 "complete " +
@@ -100,7 +100,7 @@ namespace TreeBasedCli
                 $"--condition \"__fish_using_command {usingCommandArgument}\" " +
                 "--no-files " +
                 $"--arguments {childCommand.Label} " +
-                $"--description \"{description}\""
+                $"--description '{description}'"
             );
         }
 
@@ -115,7 +115,7 @@ namespace TreeBasedCli
 
             foreach (CommandOption option in command.Options)
             {
-                string description = string.Join(" ", option.Description).Replace("\"", "\\\"");
+                string description = string.Join(" ", option.Description).Replace("'", "\\'");
 
                 this.lines.Add(
                     "complete " +
@@ -123,7 +123,7 @@ namespace TreeBasedCli
                     $"--condition \"__fish_using_command {usingCommandArgument}\" " +
                     "--no-files " +
                     $"--long-option {option.Label.TrimStart('-')} " +
-                    $"--description \"{description}\""
+                    $"--description '{description}'"
                 );
             }
         }
